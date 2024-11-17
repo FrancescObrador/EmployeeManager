@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeManager.Model
+{
+    [Table("employee")]
+    public class Employee
+    {
+        public int id { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string email { get; set; }
+        public string phone_number { get; set; }
+        public DateTime hire_date { get; set; }
+        public decimal salary { get; set; }
+        public string position { get; set; }
+        public DateTime date_of_birth { get; set; }
+        public byte[]? picture { get; set; }
+    }
+}
