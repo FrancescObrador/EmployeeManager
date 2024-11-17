@@ -6,6 +6,7 @@
 *.user
 *.sln.docstates
 
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -19,6 +20,9 @@ bld/
 
 # Roslyn cache directories
 *.ide/
+
+# Visual Studio cache/options directory
+.vs/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
