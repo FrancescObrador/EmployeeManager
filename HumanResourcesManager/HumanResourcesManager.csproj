@@ -14,4 +14,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\ExportPDF\ExportPDF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
+
 </Project>

@@ -8,20 +8,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HumanResourcesManager.Utilities;
+using HumanResourcesManager.ViewModel;
 
-namespace EmployeeManager
+namespace HumanResourcesManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public EmployeeViewModel vm;
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Mover esto a la toolbox
-            InitializeAsync();  
+            InitializeAsync();
+            vm = new EmployeeViewModel();
+            this.DataContext = vm;
         }
 
         private async void InitializeAsync()

@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EmployeeManager.Model;
+using HumanResourcesManager.Model;
 
-namespace EmployeeManager
+namespace HumanResourcesManager
 {
     // DbContext para EF Core
-    public class EmployeeManagerContext : DbContext
+    public class HumanResourcesManagerContext : DbContext
     {
-        public static string dbConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeManager";
+        public static string dbConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HumanResourcesManager";
         public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

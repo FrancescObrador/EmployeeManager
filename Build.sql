@@ -1,7 +1,7 @@
 ﻿---------- Database for WPF final project ----------
 ---------- Drop tables if they exist ----------
 
-USE EmployeeManager
+USE HumanResourcesManager
 GO
 
 IF OBJECT_ID('employee_project', 'U') IS NOT NULL DROP TABLE [employee_project];

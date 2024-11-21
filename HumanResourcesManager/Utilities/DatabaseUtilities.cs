@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.Win32;
 
-namespace EmployeeManager
+namespace HumanResourcesManager.Utilities
 {
     class DatabaseUtilities
     {
 
-        private EmployeeManagerContext _context = new EmployeeManagerContext();
+        private HumanResourcesManagerContext _context = new HumanResourcesManagerContext();
 
         public async Task ExecuteSqlScriptAsync()
         {
@@ -28,7 +28,7 @@ namespace EmployeeManager
                     string sqlScript = await File.ReadAllTextAsync(openFileDialog.FileName);
 
                     // Crear una conexión a la base de datos
-                    using (var connection = new SqlConnection(EmployeeManagerContext.dbConnection))
+                    using (var connection = new SqlConnection(HumanResourcesManagerContext.dbConnection))
                     {
                         await connection.OpenAsync();
 

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace EmployeeManager
+namespace HumanResourcesManager
 {
     /// <summary>
     /// Interaction logic for App.xaml
