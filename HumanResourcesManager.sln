@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResourcesManager", "HumanResourcesManager\HumanResourcesManager.csproj", "{4ECDDA4A-1390-47AC-802F-0312D73B2091}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResourcesManager", "HumanResourcesManager\HumanResourcesManager.csproj", "{4ECDDA4A-1390-47AC-802F-0312D73B2091}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{B43B9D8B-3D5A-4FC2-87BF-DC83CBDA0FDD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportPDF", "ExportPDF\ExportPDF.csproj", "{8CA8CAEC-762C-4F79-B5DC-0A6BB9904201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExportPDF", "ExportPDF\ExportPDF.csproj", "{8CA8CAEC-762C-4F79-B5DC-0A6BB9904201}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{4ECDDA4A-1390-47AC-802F-0312D73B2091}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ECDDA4A-1390-47AC-802F-0312D73B2091}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ECDDA4A-1390-47AC-802F-0312D73B2091}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B43B9D8B-3D5A-4FC2-87BF-DC83CBDA0FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B43B9D8B-3D5A-4FC2-87BF-DC83CBDA0FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B43B9D8B-3D5A-4FC2-87BF-DC83CBDA0FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B43B9D8B-3D5A-4FC2-87BF-DC83CBDA0FDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8CA8CAEC-762C-4F79-B5DC-0A6BB9904201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8CA8CAEC-762C-4F79-B5DC-0A6BB9904201}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CA8CAEC-762C-4F79-B5DC-0A6BB9904201}.Release|Any CPU.ActiveCfg = Release|Any CPU
