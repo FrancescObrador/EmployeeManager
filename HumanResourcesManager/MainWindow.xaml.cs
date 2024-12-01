@@ -29,11 +29,12 @@ namespace HumanResourcesManager
             InitializeAsync();
             vm = new EmployeeViewModel();
             this.DataContext = vm;
+            Config.Save();
         }
 
         private async void InitializeAsync()
         {
-            var result = MessageBox.Show("¿Quieres regenerar la base de datos? Esto puede tardar un poco.", "Regenerar Base de datos", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("¿Quieres regenerar la base de datos? Selecciona un archivo sql, este proyecto contiene build.sql. Esto puede tardar unos minutos.", "Regenerar Base de datos", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {

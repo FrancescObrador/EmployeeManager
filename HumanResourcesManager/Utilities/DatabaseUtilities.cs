@@ -11,10 +11,16 @@ using Microsoft.Win32;
 
 namespace HumanResourcesManager.Utilities
 {
-    class DatabaseUtilities
+    public class DatabaseUtilities
     {
 
         private HumanResourcesManagerContext _context = new HumanResourcesManagerContext();
+        private Logger logger;
+
+        public DatabaseUtilities() 
+        {
+            logger = new Logger("database-utilities");
+        }
 
         public async Task ExecuteSqlScriptAsync()
         {
@@ -38,12 +44,12 @@ namespace HumanResourcesManager.Utilities
                         }
                     }
 
-                    Console.WriteLine("El script SQL se ejecutó correctamente.");
+                    logger.LogInfo("El script SQL se ejecutó correctamente.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al ejecutar el script SQL: {ex.Message}");
+                logger.LogError($"Error al ejecutar el script SQL: {ex.Message}");
             }
         }
 
@@ -60,8 +66,8 @@ namespace HumanResourcesManager.Utilities
             var httpClient = new HttpClient();
 
             // Listas de nombres masculinos y femeninos -- Tiene que ser igual al de Build.sql 
-            var maleNames = new List<string> { "John", "Michael", "Chris", "David", "Daniel", "James", "Robert", "William", "Joseph", "Mark" };
-            var femaleNames = new List<string> { "Jane", "Emily", "Jessica", "Sarah", "Laura", "Anna", "Sophia", "Olivia", "Emma", "Isabella" };
+            var maleNames = new List<string> { "Juan", "Miguel", "Carlos", "David", "Daniel", "Jaime", "Roberto", "Guillermo", "José", "Marc", "Fernando", "Pablo", "Álvaro", "Jesús", "Raúl" };
+            var femaleNames = new List<string> { "María", "Emilia", "Jessica", "Sara", "Laura", "Ana", "Sofía", "Olivia", "Emma", "Isabela", "Gracia", "Mía", "Clara", "Lola", "Amelia" };
 
             var employees = _context.Employees.ToList();
 
@@ -79,6 +85,7 @@ namespace HumanResourcesManager.Utilities
                 }
                 else
                 {
+                    logger.LogWarning($"No se debería entrar aqui, el nombre que no coincide es: {employee.first_name}");
                     imageUrl = "https://avatar.iran.liara.run/public";
                 }
 
@@ -91,15 +98,15 @@ namespace HumanResourcesManager.Utilities
                     _context.Update(employee);
                     _context.SaveChanges();
 
-                    Console.WriteLine($"Imagen asignada para empleado con ID {employee.id}");
+                    logger.LogInfo($"Imagen asignada para empleado con ID {employee.id}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error al descargar la imagen para el empleado con ID {employee.id}: {ex.Message}");
+                    logger.LogError($"Error al descargar la imagen para el empleado con ID {employee.id}: {ex.Message}");
                 }
             }
 
-            Console.WriteLine("Todas las imágenes se han guardado correctamente.");
+            logger.LogInfo("Todas las imágenes se han guardado correctamente.");
         }
     }
 }

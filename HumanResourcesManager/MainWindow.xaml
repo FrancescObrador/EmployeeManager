@@ -29,26 +29,22 @@
         <!-- Contenido principal -->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Formulario para datos de empleados -->
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBox Width="150" Text="{Binding SelectedEmployee.Name, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Width="150" Text="{Binding SelectedEmployee.Position, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Width="100" Text="{Binding SelectedEmployee.Salary, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-
             <!-- Lista de empleados -->
-            <ListBox Grid.Row="1" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+            <ListBox Grid.Row="0" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding first_name}" Width="150" Margin="5" />
-                            <TextBlock Text="{Binding position}" Width="150" Margin="5" />
-                            <TextBlock Text="{Binding salary}" Width="100" Margin="5" />
-                            <Image Source="{Binding picture, Converter={StaticResource ByteArrayToImageConverter}}" Width="250" Margin="5" />
+                        <StackPanel Orientation="Horizontal"> 
+                            <Image Source="{Binding picture, Converter={StaticResource ByteArrayToImageConverter}}" />
+                            <TextBlock Text="{Binding first_name}" />
+                            <TextBlock Text="{Binding last_name}" />
+                            <TextBlock Text="{Binding position}" />
+                            <TextBlock Text="{Binding email}"  />
+                            <TextBlock Text="{Binding phone_number}"/>
+                            <TextBlock Text="{Binding hire_date}"  />
+                            <TextBlock Text="{Binding salary}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

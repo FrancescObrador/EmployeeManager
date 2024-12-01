@@ -2,7 +2,6 @@
 ---------- Drop tables if they exist ----------
 
 USE HumanResourcesManager
-GO
 
 IF OBJECT_ID('employee_project', 'U') IS NOT NULL DROP TABLE [employee_project];
 IF OBJECT_ID('time_off_request', 'U') IS NOT NULL DROP TABLE [time_off_request];
@@ -10,7 +9,6 @@ IF OBJECT_ID('payroll', 'U') IS NOT NULL DROP TABLE [payroll];
 IF OBJECT_ID('employee', 'U') IS NOT NULL DROP TABLE [employee];
 IF OBJECT_ID('project', 'U') IS NOT NULL DROP TABLE [project];
 IF OBJECT_ID('department', 'U') IS NOT NULL DROP TABLE [department];
-GO
 
 ---------- Create tables ----------
 
@@ -19,7 +17,6 @@ CREATE TABLE [department] (
   [name] varchar(255),
   [description] varchar(255)
 )
-GO
 
 CREATE TABLE [employee] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -34,7 +31,7 @@ CREATE TABLE [employee] (
   [date_of_birth] date,
   [picture] varbinary(max)
 )
-GO
+
 
 CREATE TABLE [project] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -45,7 +42,6 @@ CREATE TABLE [project] (
   [budget] decimal(15,2),
   [status] nvarchar(255) NOT NULL CHECK ([status] IN ('upcoming', 'active', 'canceled'))
 )
-GO
 
 CREATE TABLE [employee_project] (
   [employee_id] integer,
@@ -54,7 +50,6 @@ CREATE TABLE [employee_project] (
   [start_date] date,
   [end_date] date
 )
-GO
 
 CREATE TABLE [time_off_request] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -65,7 +60,7 @@ CREATE TABLE [time_off_request] (
   [status] nvarchar(255) NOT NULL CHECK ([status] IN ('approved', 'pending', 'rejected')),
   [request_date] date
 )
-GO
+
 
 CREATE TABLE [payroll] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -75,39 +70,33 @@ CREATE TABLE [payroll] (
   [deductions] decimal(10,2),
   [net_salary] decimal(10,2)
 )
-GO
 
-CREATE INDEX [employee_index_0] ON [employee] ("department_id")
-GO
 
-CREATE INDEX [employee_project_index_1] ON [employee_project] ("employee_id", "project_id")
-GO
+CREATE INDEX [employee_index_0] ON [employee] (department_id)
 
-CREATE INDEX [time_off_request_index_2] ON [time_off_request] ("employee_id")
-GO
+CREATE INDEX [employee_project_index_1] ON [employee_project] (employee_id, project_id)
 
-CREATE INDEX [payroll_index_3] ON [payroll] ("employee_id")
-GO
+CREATE INDEX [time_off_request_index_2] ON [time_off_request] (employee_id)
+
+CREATE INDEX [payroll_index_3] ON [payroll] (employee_id)
+
 
 ALTER TABLE [employee] ADD FOREIGN KEY ([department_id]) REFERENCES [department] ([id])
-GO
+
 
 ALTER TABLE [employee_project] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
-GO
+
 
 ALTER TABLE [employee_project] ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id])
-GO
+
 
 ALTER TABLE [time_off_request] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
-GO
+
 
 ALTER TABLE [payroll] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
-GO
+
 
 ---------- Populate ----------
-
-USE TestWPF;
-GO
 
 -- Generar 10 departamentos ficticios
 INSERT INTO department (name, description)
@@ -126,15 +115,15 @@ VALUES
 -- Variables para datos ficticios
 DECLARE @MaleFirstNames TABLE (name VARCHAR(255));
 INSERT INTO @MaleFirstNames VALUES
-('John'), ('Michael'), ('Chris'), ('David'), ('Daniel'),
-('James'), ('Robert'), ('William'), ('Joseph'), ('Mark'),
-('Kevin'), ('Paul'), ('Brian'), ('Jason'), ('Ryan');
+('Juan'), ('Miguel'), ('Carlos'), ('David'), ('Daniel'),
+('Jaime'), ('Roberto'), ('Guillermo'), ('José'), ('Marc'),
+('Fernando'), ('Pablo'), ('Álvaro'), ('Jesús'), ('Raúl');
 
 DECLARE @FemaleFirstNames TABLE (name VARCHAR(255));
 INSERT INTO @FemaleFirstNames VALUES
-('Jane'), ('Emily'), ('Jessica'), ('Sarah'), ('Laura'),
-('Anna'), ('Sophia'), ('Olivia'), ('Emma'), ('Isabella'),
-('Grace'), ('Mia'), ('Chloe'), ('Lily'), ('Amelia');
+('María'), ('Emilia'), ('Jessica'), ('Sara'), ('Laura'),
+('Ana'), ('Sofía'), ('Olivia'), ('Emma'), ('Isabela'),
+('Gracia'), ('Mía'), ('Clara'), ('Lola'), ('Amelia');
 
 DECLARE @LastNames TABLE (name VARCHAR(255));
 INSERT INTO @LastNames VALUES
@@ -173,4 +162,4 @@ ELSE
 
     SET @i = @i + 1;
 END;
-GO
+
