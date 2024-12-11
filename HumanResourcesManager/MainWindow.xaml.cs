@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HumanResourcesManager.Utilities;
-using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.View;
 
 namespace HumanResourcesManager
 {
@@ -18,18 +18,15 @@ namespace HumanResourcesManager
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public EmployeeViewModel vm;
-
         public MainWindow()
         {
             InitializeComponent();
 
             // Mover esto a la toolbox
-            InitializeAsync();
-            vm = new EmployeeViewModel();
-            this.DataContext = vm;
-            Config.Save();
+            //InitializeAsync();
+            this.mainFrame.Navigate(new EmployeesPage());
+
+            Config.Load();
         }
 
         private async void InitializeAsync()

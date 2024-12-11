@@ -22,5 +22,15 @@ namespace HumanResourcesManager.Model
         public string position { get; set; }
         public DateTime date_of_birth { get; set; }
         public byte[]? picture { get; set; }
+
+        [ForeignKey("department_id")]
+        public virtual Department department { get; set; }
+
+        public virtual List<EmployeeProject> EmployeeProjects { get; set; }
+
+        public Employee()
+        {
+
+        }
     }
 }

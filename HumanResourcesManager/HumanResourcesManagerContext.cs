@@ -14,6 +14,10 @@ namespace HumanResourcesManager
     {
         public static string dbConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HumanResourcesManager";
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<EmployeeProject> EmployeeProjects { get; set; }
+        public DbSet<Payroll> Payrolls { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

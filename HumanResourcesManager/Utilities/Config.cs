@@ -38,14 +38,21 @@ namespace HumanResourcesManager.Utilities
         }
 
         /// <summary>
-        /// Loads the configuration settings from the application settings (AppSettings) in the configuration file.
+        /// Loads the configuration settings from the applications settings file.
         /// </summary>
         public static void Load()
         {
-            logger.LogInfo("Config - Loading configuration");
-            foreach (var key in ConfigurationManager.AppSettings.AllKeys)
+            try
             {
-                _settings[key] = ConfigurationManager.AppSettings[key] ?? string.Empty;
+                logger.LogInfo("Config - Loading configuration");
+                foreach (var key in ConfigurationManager.AppSettings.AllKeys)
+                {
+                    _settings[key] = ConfigurationManager.AppSettings[key] ?? string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
 
             if (_settings.Count == 0)
