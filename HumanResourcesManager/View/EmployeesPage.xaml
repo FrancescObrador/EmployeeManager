@@ -18,16 +18,16 @@
         </Grid.RowDefinitions>
 
         <WrapPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="4" MinWidth="200">
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
                 <StackPanel>
                     <Label Content="Total:"></Label>
                     <TextBlock Text="{Binding Total}"></TextBlock>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="4" Padding="20">
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
                 <StackPanel>
                     <Label Content="Empleados por departamentos:"></Label>
-                    <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="320" MinWidth="370"/>
+                    <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4"/>
                 </StackPanel>
             </Border>
         </WrapPanel>

@@ -12,16 +12,16 @@
     <DockPanel>
         <!-- Barra superior -->
         <ToolBar DockPanel.Dock="Top">
-            <Button Content="Archivo" />
+            <!--<Button Content="Archivo" />
             <Button Content="Editar" />
-            <Button Content="Ayuda" />
+            <Button Content="Ayuda" />-->
         </ToolBar>
 
         <!-- Barra lateral izquierda -->
         <StackPanel DockPanel.Dock="Left" Background="LightGray" Width="200">
-            <Button Content="Opción 1" Margin="5" />
-            <Button Content="Opción 2" Margin="5" />
-            <Button Content="Opción 3" Margin="5" />
+            <Button x:Name="btnPageOne" Content="Opción 1" Margin="5" Click="btnPageOne_Click" />
+            <Button x:Name="btnPageTwo" Content="Opción 2" Margin="5" Click="btnPageTwo_Click" />
+            <Button x:Name="btnPageThree" Content="Opción 3" Margin="5" Click="btnPageThree_Click" />
         </StackPanel>
 
         <!-- Contenido principal -->

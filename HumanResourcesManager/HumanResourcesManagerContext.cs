@@ -24,5 +24,26 @@ namespace HumanResourcesManager
             optionsBuilder.UseSqlServer(dbConnection);
             optionsBuilder.UseLazyLoadingProxies();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EmployeeProject>()
+                .HasKey(ep => new { ep.employee_id, ep.project_id });
+
+            modelBuilder.Entity<EmployeeProject>()
+                .HasOne(ep => ep.employee)
+                .WithMany(e => e.EmployeeProjects)
+                .HasForeignKey(ep => ep.employee_id);
+
+            modelBuilder.Entity<EmployeeProject>()
+                .HasOne(ep => ep.project)
+                .WithMany(p => p.EmployeeProjects)
+                .HasForeignKey(ep => ep.project_id);
+
+            modelBuilder.Entity<Project>()
+                .Navigation(p => p.EmployeeProjects)
+                .AutoInclude();
+        }
+
     }
 }

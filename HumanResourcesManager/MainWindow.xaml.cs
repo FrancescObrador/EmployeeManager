@@ -48,5 +48,20 @@ namespace HumanResourcesManager
             await p.PopulateDB();
             onComplete?.Invoke();
         }
+
+        private void btnPageOne_Click(object sender, RoutedEventArgs e)
+        {
+            this.mainFrame.Navigate(new EmployeesPage());
+        }
+
+        private void btnPageTwo_Click(object sender, RoutedEventArgs e)
+        {
+            this.mainFrame.Navigate(new ProjectsPage());
+        }
+
+        private void btnPageThree_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

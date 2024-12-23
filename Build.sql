@@ -32,7 +32,6 @@ CREATE TABLE [employee] (
   [picture] varbinary(max)
 )
 
-
 CREATE TABLE [project] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
   [name] varchar(255),
@@ -127,9 +126,9 @@ INSERT INTO @FemaleFirstNames VALUES
 
 DECLARE @LastNames TABLE (name VARCHAR(255));
 INSERT INTO @LastNames VALUES
-('Smith'), ('Johnson'), ('Williams'), ('Brown'), ('Jones'),
-('Garcia'), ('Miller'), ('Davis'), ('Rodriguez'), ('Martinez'),
-('Taylor'), ('Anderson'), ('Thomas'), ('Hernandez'), ('Moore');
+('García'), ('Martínez'), ('López'), ('Sánchez'), ('Pérez'),
+('Ferrer'), ('Costa'), ('Navarro'), ('Serra'), ('Moll'),
+('Moreno'), ('Castillo'), ('Ribas'), ('Segura'), ('Ortega');
 
 DECLARE @Positions TABLE (position VARCHAR(100));
 INSERT INTO @Positions VALUES
@@ -137,15 +136,15 @@ INSERT INTO @Positions VALUES
 ('Engineer'), ('Consultant'), ('Specialist'), ('Assistant'),
 ('Technician'), ('Director');
 
--- Generar 100 empleados ficticios
+-- Generar 60 empleados ficticios
 DECLARE @i INT = 1;
-WHILE @i <= 100
+WHILE @i <= 60
 BEGIN
     DECLARE @FirstName VARCHAR(255);
-IF RAND() < 0.5 -- Probabilidad del 50%
-    SET @FirstName = (SELECT TOP 1 name FROM @MaleFirstNames ORDER BY NEWID());
-ELSE
-    SET @FirstName = (SELECT TOP 1 name FROM @FemaleFirstNames ORDER BY NEWID());
+    IF RAND() < 0.5 -- Probabilidad del 50%
+        SET @FirstName = (SELECT TOP 1 name FROM @MaleFirstNames ORDER BY NEWID());
+    ELSE
+        SET @FirstName = (SELECT TOP 1 name FROM @FemaleFirstNames ORDER BY NEWID());
 
     DECLARE @LastName VARCHAR(255) = (SELECT TOP 1 name FROM @LastNames ORDER BY NEWID());
     DECLARE @Email VARCHAR(255) = LOWER(@FirstName + '.' + @LastName + CAST(@i AS VARCHAR(10)) + '@example.com');
@@ -163,3 +162,34 @@ ELSE
     SET @i = @i + 1;
 END;
 
+-- Insertar 3 proyectos
+INSERT INTO project (name, description, start_date, end_date, budget, status)
+VALUES 
+('Project A', 'Development of a new software platform', '2024-01-01', '2024-12-31', 500000, 'active'),
+('Project B', 'Implementation of a company-wide ERP system', '2024-03-01', '2024-11-30', 300000, 'active'),
+('Project C', 'Research and development of AI tools', '2024-02-15', '2024-09-30', 200000, 'upcoming');
+
+-- Asignar empleados a proyectos
+DECLARE @EmployeeCount INT = (SELECT COUNT(*) FROM employee);
+SET @i = 1;
+
+WHILE @i <= @EmployeeCount
+BEGIN
+    -- Asignar cada empleado al menos a un proyecto
+    DECLARE @EmployeeId INT = (SELECT id FROM employee ORDER BY id OFFSET @i - 1 ROWS FETCH NEXT 1 ROWS ONLY);
+    DECLARE @ProjectId INT = (SELECT id FROM project ORDER BY NEWID() OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY);
+
+    -- Insertar asignación
+    INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
+    VALUES (@EmployeeId, @ProjectId, 'Team Member', GETDATE(), NULL);
+
+    -- Asignar a un segundo proyecto para algunos empleados (probabilidad del 50%)
+    IF RAND() < 0.5
+    BEGIN
+        DECLARE @SecondProjectId INT = (SELECT id FROM project WHERE id != @ProjectId ORDER BY NEWID() OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY);
+        INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
+        VALUES (@EmployeeId, @SecondProjectId, 'Team Member', GETDATE(), NULL);
+    END
+
+    SET @i = @i + 1;
+END;

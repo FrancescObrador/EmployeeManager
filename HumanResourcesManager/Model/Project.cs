@@ -19,8 +19,8 @@ namespace HumanResourcesManager.Model
         public DateTime start_date { get; set; }
         public DateTime end_date { get; set; }
         public decimal budget { get; set; }
-        public project_status status { get; set; }
+        public string status { get; set; }
 
-        public virtual List<EmployeeProject> EmployeeProjects { get; set; }
+        public virtual List<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
     }
 }

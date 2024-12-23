@@ -18,8 +18,8 @@ namespace HumanResourcesManager.Model
         public DateTime end_date { get; set; }
 
         [Key]
-        public int employee_id { get; set; }  // Clave foránea explícita
-        public int project_id { get; set; }   // Clave foránea explícita
+        public int employee_id { get; set; }  
+        public int project_id { get; set; }   
 
         [ForeignKey("employee_id")]
         public virtual Employee employee { get; set; }
