@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="projectBudget" xml:space="preserve">
-    <value>Budget</value>
+    <value>Presupost</value>
   </data>
   <data name="projectDescription" xml:space="preserve">
-    <value>Description</value>
+    <value>Descripció</value>
   </data>
   <data name="projectEndDate" xml:space="preserve">
-    <value>Finish Date</value>
+    <value>Data de finalització</value>
   </data>
   <data name="projectName" xml:space="preserve">
-    <value>Name of the Project</value>
+    <value>Nom del Projecte</value>
   </data>
   <data name="projectStartDate" xml:space="preserve">
-    <value>Start Date</value>
+    <value>Data d'Inici</value>
   </data>
   <data name="projectStatus" xml:space="preserve">
-    <value>Status</value>
+    <value>Estat</value>
   </data>
 </root>
