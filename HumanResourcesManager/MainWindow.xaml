@@ -2,25 +2,32 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:p="clr-namespace:HumanResourcesManager.Properties" 
         xmlns:local="clr-namespace:HumanResourcesManager"
         
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="Euryst" Height="450" Width="800">
+        Title="Euryst" Height="450" Width="800" Loaded="Window_Loaded">
     
     <DockPanel>
         <!-- Barra superior -->
         <ToolBar DockPanel.Dock="Top">
-            <!--<Button Content="Archivo" />
+            <!--<Button Content="Archivo" /
             <Button Content="Editar" />
             <Button Content="Ayuda" />-->
+            <Label Name="lblLanguages" Content="{Binding Source={x:Static p:Resources.Languages}}" />
+            <ComboBox Name="Languages" Width="150" SelectionChanged="Languages_SelectionChanged">
+                <ComboBoxItem Content="{Binding Source={x:Static p:Resources.en_EN}}" Tag="en-EN" />
+                <ComboBoxItem Content="{Binding Source={x:Static p:Resources.es_ES}}" Tag="es-ES" />
+                <ComboBoxItem Content="{Binding Source={x:Static p:Resources.ca_ES}}" Tag="ca-ES" />
+            </ComboBox>
         </ToolBar>
 
         <!-- Barra lateral izquierda -->
         <StackPanel DockPanel.Dock="Left" Background="LightGray" Width="200">
-            <Button x:Name="btnPageOne" Content="Opción 1" Margin="5" Click="btnPageOne_Click" />
-            <Button x:Name="btnPageTwo" Content="Opción 2" Margin="5" Click="btnPageTwo_Click" />
+            <Button x:Name="btnPageOne" Content="{Binding Source={x:Static p:Resources.employeesTitle}}" Margin="5" Click="btnPageOne_Click" />
+            <Button x:Name="btnPageTwo" Content="{Binding Source={x:Static p:Resources.projectsTitle}}" Margin="5" Click="btnPageTwo_Click" />
             <Button x:Name="btnPageThree" Content="Opción 3" Margin="5" Click="btnPageThree_Click" />
         </StackPanel>
 

@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ca-ES" xml:space="preserve">
+    <value>Català</value>
+  </data>
+  <data name="employeesTitle" xml:space="preserve">
+    <value>Empleats</value>
+  </data>
+  <data name="en-EN" xml:space="preserve">
+    <value>Anglès</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Idiomes</value>
+  </data>
   <data name="projectBudget" xml:space="preserve">
     <value>Presupost</value>
   </data>
@@ -134,5 +146,41 @@
   </data>
   <data name="projectStatus" xml:space="preserve">
     <value>Estat</value>
+  </data>
+  <data name="projectsTitle" xml:space="preserve">
+    <value>Projectes</value>
+  </data>
+  <data name="es-ES" xml:space="preserve">
+    <value>Espanyol</value>
+  </data>
+  <data name="employeeFirstName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="employeeLastName" xml:space="preserve">
+    <value>Cognom</value>
+  </data>
+  <data name="employeePosition" xml:space="preserve">
+    <value>Càrrec</value>
+  </data>
+  <data name="employeePhoneNumber" xml:space="preserve">
+    <value>Número de Telèfon</value>
+  </data>
+  <data name="employeeHireDate" xml:space="preserve">
+    <value>Data d'Alta</value>
+  </data>
+  <data name="employeeSalary" xml:space="preserve">
+    <value>Sou</value>
+  </data>
+  <data name="employeeDepartment" xml:space="preserve">
+    <value>Departament</value>
+  </data>
+  <data name="employeeEmail" xml:space="preserve">
+    <value>Correu electrònic</value>
+  </data>
+  <data name="employeePerDepartment" xml:space="preserve">
+    <value>Empleats per Departament</value>
+  </data>
+  <data name="employeePerProject" xml:space="preserve">
+    <value>Empleats per Projecte</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -23,7 +24,8 @@ namespace HumanResourcesManager.Utilities
         public static void InitDefaults()
         {
             logger.LogInfo("Config - Loading default configuration");
-            SetDefault("lang", "es");
+            SetDefault("lang", "en-EN");
+            
         }
 
         /// <summary>

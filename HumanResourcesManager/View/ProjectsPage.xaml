@@ -30,7 +30,7 @@
             </Border>
             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
                 <StackPanel>
-                    <Label Content="Empleados por proyecto:"></Label>
+                    <Label Content="{Binding Source={x:Static p:Resources.employeePerProject}}"></Label>
                     <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4" />
                 </StackPanel>
             </Border>

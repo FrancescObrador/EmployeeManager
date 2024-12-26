@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.cat-ES.resx">
+    <EmbeddedResource Update="Properties\Resources.ca-ES.resx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>

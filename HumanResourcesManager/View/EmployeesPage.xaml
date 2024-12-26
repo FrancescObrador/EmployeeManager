@@ -21,13 +21,13 @@
         <WrapPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
                 <StackPanel>
-                    <Label Content="Total:"></Label>
+                    <Label Content="Total"></Label>
                     <TextBlock Text="{Binding Total}"></TextBlock>
                 </StackPanel>
             </Border>
             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
                 <StackPanel>
-                    <Label Content="Empleados por departamentos:"></Label>
+                    <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
                     <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4"/>
                 </StackPanel>
             </Border>
@@ -47,14 +47,14 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Binding="{Binding first_name}" Header="Nombre" Width="*" />
-                <DataGridTextColumn Binding="{Binding last_name}" Header="Apellido" Width="*" />
-                <DataGridTextColumn Binding="{Binding position}" Header="Cargo" Width="*" />
-                <DataGridTextColumn Binding="{Binding email}" Header="Email" Width="*" />
-                <DataGridTextColumn Binding="{Binding phone_number}" Header="Teléfono" Width="*" />
-                <DataGridTextColumn Binding="{Binding hire_date}" Header="Fecha de contratación" Width="*" />
-                <DataGridTextColumn Binding="{Binding salary}" Header="Salario" Width="*" />
-                <DataGridTextColumn Binding="{Binding department.name}" Header="Departamento" Width="*" />
+                <DataGridTextColumn Binding="{Binding first_name}" Header="{Binding Source={x:Static p:Resources.employeeFirstName}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding last_name}" Header="{Binding Source={x:Static p:Resources.employeeLastName}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding position}" Header="{Binding Source={x:Static p:Resources.employeePosition}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding email}" Header="{Binding Source={x:Static p:Resources.employeeEmail}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding phone_number}" Header="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding hire_date}" Header="{Binding Source={x:Static p:Resources.employeeHireDate}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding salary}" Header="{Binding Source={x:Static p:Resources.employeeSalary}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding department.name}" Header="{Binding Source={x:Static p:Resources.employeeDepartment}}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 

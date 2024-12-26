@@ -61,6 +61,141 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Catalan.
+        /// </summary>
+        public static string ca_ES {
+            get {
+                return ResourceManager.GetString("ca-ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        public static string employeeDepartment {
+            get {
+                return ResourceManager.GetString("employeeDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string employeeEmail {
+            get {
+                return ResourceManager.GetString("employeeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string employeeFirstName {
+            get {
+                return ResourceManager.GetString("employeeFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hire Date.
+        /// </summary>
+        public static string employeeHireDate {
+            get {
+                return ResourceManager.GetString("employeeHireDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string employeeLastName {
+            get {
+                return ResourceManager.GetString("employeeLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employees per Department.
+        /// </summary>
+        public static string employeePerDepartment {
+            get {
+                return ResourceManager.GetString("employeePerDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employees per Project.
+        /// </summary>
+        public static string employeePerProject {
+            get {
+                return ResourceManager.GetString("employeePerProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string employeePhoneNumber {
+            get {
+                return ResourceManager.GetString("employeePhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string employeePosition {
+            get {
+                return ResourceManager.GetString("employeePosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salary.
+        /// </summary>
+        public static string employeeSalary {
+            get {
+                return ResourceManager.GetString("employeeSalary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employees.
+        /// </summary>
+        public static string employeesTitle {
+            get {
+                return ResourceManager.GetString("employeesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string en_EN {
+            get {
+                return ResourceManager.GetString("en-EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string es_ES {
+            get {
+                return ResourceManager.GetString("es-ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        public static string Languages {
+            get {
+                return ResourceManager.GetString("Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Budget.
         /// </summary>
         public static string projectBudget {
@@ -111,6 +246,15 @@ namespace HumanResourcesManager.Properties {
         public static string projectStatus {
             get {
                 return ResourceManager.GetString("projectStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects.
+        /// </summary>
+        public static string projectsTitle {
+            get {
+                return ResourceManager.GetString("projectsTitle", resourceCulture);
             }
         }
     }
