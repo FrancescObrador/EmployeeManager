@@ -12,18 +12,31 @@ using System.Windows;
 
 namespace ExportPDF
 {
-    public class PayrollBase
+    public class Payroll
     {
-        public int id { get; set; }
-        public DateTime pay_date { get; set; }
-        public decimal gross_salary { get; set; }
-        public decimal deductions { get; set; }
-        public decimal net_salary { get; set; }
+        public int Id { get; set; }
+        public DateTime PayDate { get; set; }
+        public decimal GrossSalary { get; set; }
+        public decimal Deductions { get; set; }
+        public decimal NetSalary { get; set; }
+        public string Name { get; set; }
+        public string Rol { get; set; }
+
+        public Payroll(int _id, DateTime _payDate, decimal _grossSalary, decimal _deductions, decimal netSalary, string name, string rol)
+        {
+            Id = _id;
+            PayDate = _payDate;
+            GrossSalary = _grossSalary;
+            Deductions = _deductions;
+            NetSalary = netSalary;
+            Name = name;
+            Rol = rol;
+        }
     }
 
     public class PayrollPDFService
     {
-        public bool SavePDF(PayrollBase payroll, string path)
+        public bool SavePDF(Payroll payroll, string path)
         {
             try
             {
@@ -47,15 +60,15 @@ namespace ExportPDF
 
                 Row row = employeeTable.AddRow();
                 row.Cells[0].AddParagraph("Empleado:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph("nombre");
+                row.Cells[1].AddParagraph(payroll.Name);
 
                 row = employeeTable.AddRow();
                 row.Cells[0].AddParagraph("Puesto:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph("Puesto");
+                row.Cells[1].AddParagraph(payroll.Rol);
 
                 row = employeeTable.AddRow();
                 row.Cells[0].AddParagraph("Mes:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph(payroll.pay_date.ToString());
+                row.Cells[1].AddParagraph(payroll.PayDate.ToString());
 
                 section.AddParagraph();
 
@@ -68,15 +81,15 @@ namespace ExportPDF
 
                 row = salaryTable.AddRow();
                 row.Cells[0].AddParagraph("Salario Bruto:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph(payroll.gross_salary.ToString("C"));
+                row.Cells[1].AddParagraph(payroll.GrossSalary.ToString("C"));
 
                 row = salaryTable.AddRow();
                 row.Cells[0].AddParagraph("Deducciones:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph(payroll.deductions.ToString("C"));
+                row.Cells[1].AddParagraph(payroll.Deductions.ToString("C"));
 
                 row = salaryTable.AddRow();
                 row.Cells[0].AddParagraph("Salario Neto:").Format.Font.Bold = true;
-                row.Cells[1].AddParagraph(payroll.net_salary.ToString("C"));
+                row.Cells[1].AddParagraph(payroll.NetSalary.ToString("C"));
 
                 // Renderización del PDF
                 PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer
