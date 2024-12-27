@@ -14,8 +14,9 @@
         <!-- Barra superior -->
         <ToolBar DockPanel.Dock="Top">
             <!--<Button Content="Archivo" /
-            <Button Content="Editar" />
             <Button Content="Ayuda" />-->
+            <Button Content="Regenerar datos" Click="Button_Click" />
+            <Separator></Separator>
             <Label Name="lblLanguages" Content="{Binding Source={x:Static p:Resources.Languages}}" />
             <ComboBox Name="Languages" Width="150" SelectionChanged="Languages_SelectionChanged">
                 <ComboBoxItem Content="{Binding Source={x:Static p:Resources.en_EN}}" Tag="en-EN" />

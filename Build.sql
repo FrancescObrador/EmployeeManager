@@ -60,7 +60,6 @@ CREATE TABLE [time_off_request] (
   [request_date] date
 )
 
-
 CREATE TABLE [payroll] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
   [employee_id] integer,
@@ -70,7 +69,6 @@ CREATE TABLE [payroll] (
   [net_salary] decimal(10,2)
 )
 
-
 CREATE INDEX [employee_index_0] ON [employee] (department_id)
 
 CREATE INDEX [employee_project_index_1] ON [employee_project] (employee_id, project_id)
@@ -79,21 +77,15 @@ CREATE INDEX [time_off_request_index_2] ON [time_off_request] (employee_id)
 
 CREATE INDEX [payroll_index_3] ON [payroll] (employee_id)
 
-
 ALTER TABLE [employee] ADD FOREIGN KEY ([department_id]) REFERENCES [department] ([id])
-
 
 ALTER TABLE [employee_project] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
 
-
 ALTER TABLE [employee_project] ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id])
-
 
 ALTER TABLE [time_off_request] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
 
-
 ALTER TABLE [payroll] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
-
 
 ---------- Populate ----------
 
@@ -193,3 +185,36 @@ BEGIN
 
     SET @i = @i + 1;
 END;
+
+-- Declare variables for the last three months
+DECLARE @CurrentMonth DATE = GETDATE();
+DECLARE @LastMonth DATE = DATEADD(MONTH, -1, @CurrentMonth);
+DECLARE @TwoMonthsAgo DATE = DATEADD(MONTH, -2, @CurrentMonth);
+
+-- Insert payroll records for all employees
+INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
+SELECT 
+    id as employee_id,
+    @CurrentMonth as pay_date,
+    salary as gross_salary,
+    ROUND(salary * 0.25, 2) as deductions,
+    ROUND(salary * 0.75, 2) as net_salary
+FROM employee;
+
+INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
+SELECT 
+    id as employee_id,
+    @LastMonth as pay_date,
+    salary as gross_salary,
+    ROUND(salary * 0.25, 2) as deductions,
+    ROUND(salary * 0.75, 2) as net_salary
+FROM employee;
+
+INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
+SELECT 
+    id as employee_id,
+    @TwoMonthsAgo as pay_date,
+    salary as gross_salary,
+    ROUND(salary * 0.25, 2) as deductions,
+    ROUND(salary * 0.75, 2) as net_salary
+FROM employee;

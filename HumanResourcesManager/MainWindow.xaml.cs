@@ -68,7 +68,6 @@ namespace HumanResourcesManager
 
         private void btnPageThree_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Languages_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -133,6 +132,12 @@ namespace HumanResourcesManager
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.RefreshFrame();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            InitializeAsync();
         }
     }
 }
