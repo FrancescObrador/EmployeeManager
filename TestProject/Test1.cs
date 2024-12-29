@@ -1,4 +1,4 @@
-﻿namespace UnitTesting
+﻿namespace TestProject
 {
     [TestClass]
     public sealed class Test1

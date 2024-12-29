@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace HumanResourcesManager.ViewModel
 {
-    public abstract class ViewModelBase<T> : INotifyPropertyChanged where T : class
+    public abstract class ViewModelBase<T> : IViewModel<T> where T : class
     {
         private Logger logger;
 
