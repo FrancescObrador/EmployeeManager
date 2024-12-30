@@ -115,6 +115,20 @@ namespace HumanResourcesManager.ViewModel
             }
         }
 
+        public void Delete(T item)
+        {
+            try
+            {
+                _context.Set<T>().Remove(item);
+                _context.SaveChanges();
+                Items.Remove(item);
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+        }
+
         public void SaveChanges()
         {
             try

@@ -192,4 +192,7 @@
   <data name="generateDatabase" xml:space="preserve">
     <value>Generar Base de Datos</value>
   </data>
+  <data name="delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
 </root>

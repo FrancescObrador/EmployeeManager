@@ -1,8 +1,9 @@
 ﻿---------- Database for WPF final project ----------
 ---------- Drop tables if they exist ----------
 
-USE HumanResourcesManager
+USE HumanResourcesManager;
 
+-- Eliminar tablas si existen
 IF OBJECT_ID('employee_project', 'U') IS NOT NULL DROP TABLE [employee_project];
 IF OBJECT_ID('time_off_request', 'U') IS NOT NULL DROP TABLE [time_off_request];
 IF OBJECT_ID('payroll', 'U') IS NOT NULL DROP TABLE [payroll];
@@ -10,13 +11,12 @@ IF OBJECT_ID('employee', 'U') IS NOT NULL DROP TABLE [employee];
 IF OBJECT_ID('project', 'U') IS NOT NULL DROP TABLE [project];
 IF OBJECT_ID('department', 'U') IS NOT NULL DROP TABLE [department];
 
----------- Create tables ----------
-
+-- Crear tablas
 CREATE TABLE [department] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
   [name] varchar(255),
   [description] varchar(255)
-)
+);
 
 CREATE TABLE [employee] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -30,7 +30,7 @@ CREATE TABLE [employee] (
   [position] varchar(100),
   [date_of_birth] date,
   [picture] varbinary(max)
-)
+);
 
 CREATE TABLE [project] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -40,7 +40,7 @@ CREATE TABLE [project] (
   [end_date] date,
   [budget] decimal(15,2),
   [status] nvarchar(255) NOT NULL CHECK ([status] IN ('upcoming', 'active', 'canceled'))
-)
+);
 
 CREATE TABLE [employee_project] (
   [employee_id] integer,
@@ -48,7 +48,7 @@ CREATE TABLE [employee_project] (
   [role] varchar(100),
   [start_date] date,
   [end_date] date
-)
+);
 
 CREATE TABLE [time_off_request] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -58,7 +58,7 @@ CREATE TABLE [time_off_request] (
   [type] nvarchar(255) NOT NULL CHECK ([type] IN ('vacation', 'sick_leave')),
   [status] nvarchar(255) NOT NULL CHECK ([status] IN ('approved', 'pending', 'rejected')),
   [request_date] date
-)
+);
 
 CREATE TABLE [payroll] (
   [id] integer PRIMARY KEY IDENTITY(1, 1),
@@ -67,25 +67,31 @@ CREATE TABLE [payroll] (
   [gross_salary] decimal(10,2),
   [deductions] decimal(10,2),
   [net_salary] decimal(10,2)
-)
+);
 
-CREATE INDEX [employee_index_0] ON [employee] (department_id)
+-- Crear índices
+CREATE INDEX [employee_index_0] ON [employee] (department_id);
+CREATE INDEX [employee_project_index_1] ON [employee_project] (employee_id, project_id);
+CREATE INDEX [time_off_request_index_2] ON [time_off_request] (employee_id);
+CREATE INDEX [payroll_index_3] ON [payroll] (employee_id);
 
-CREATE INDEX [employee_project_index_1] ON [employee_project] (employee_id, project_id)
+-- Crear claves foráneas con CASCADE en DELETE
+ALTER TABLE [employee] ADD FOREIGN KEY ([department_id]) REFERENCES [department] ([id]);
 
-CREATE INDEX [time_off_request_index_2] ON [time_off_request] (employee_id)
+ALTER TABLE [employee_project] 
+    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
 
-CREATE INDEX [payroll_index_3] ON [payroll] (employee_id)
+ALTER TABLE [employee_project] 
+    ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id]);
 
-ALTER TABLE [employee] ADD FOREIGN KEY ([department_id]) REFERENCES [department] ([id])
+ALTER TABLE [time_off_request] 
+    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
 
-ALTER TABLE [employee_project] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
+ALTER TABLE [payroll] 
+    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
 
-ALTER TABLE [employee_project] ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id])
+-- Aquí puedes continuar con el código para insertar datos
 
-ALTER TABLE [time_off_request] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
-
-ALTER TABLE [payroll] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id])
 
 ---------- Populate ----------
 

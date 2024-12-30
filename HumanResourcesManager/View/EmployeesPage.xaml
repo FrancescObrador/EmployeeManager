@@ -74,6 +74,15 @@
                 <DataGridTextColumn Binding="{Binding hire_date}" Header="{Binding Source={x:Static p:Resources.employeeHireDate}}" Width="*" />
                 <DataGridTextColumn Binding="{Binding salary}" Header="{Binding Source={x:Static p:Resources.employeeSalary}}" Width="*" />
                 <DataGridTextColumn Binding="{Binding department.name}" Header="{Binding Source={x:Static p:Resources.employeeDepartment}}" Width="*" />
+
+                <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDeleteEmployee" Content="{Binding Source={x:Static p:Resources.delete}}" Width="75" Click="btnDeleteEmployee_Click" >
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

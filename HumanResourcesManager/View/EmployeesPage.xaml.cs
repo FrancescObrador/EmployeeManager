@@ -43,5 +43,18 @@ namespace HumanResourcesManager.View
         {
             employeesVM.SaveChanges();
         }
+
+        private void btnDeleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if(button != null)
+            {
+                var employee = button.DataContext as Employee;
+                if(employee != null)
+                {
+                    this.employeesVM.Delete(employee);
+                }
+            }
+        }
     }
 }
