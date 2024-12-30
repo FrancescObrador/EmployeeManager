@@ -37,5 +37,11 @@ namespace HumanResourcesManager.View
 
             this.DataContext = employeesVM;
         }
+
+
+        private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            employeesVM.SaveChanges();
+        }
     }
 }

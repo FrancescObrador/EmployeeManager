@@ -183,4 +183,13 @@
   <data name="employeePerProject" xml:space="preserve">
     <value>Empleats per Projecte</value>
   </data>
+  <data name="editionMode" xml:space="preserve">
+    <value>Mode Edició</value>
+  </data>
+  <data name="saveChanges" xml:space="preserve">
+    <value>Guardar Canvis</value>
+  </data>
+  <data name="generateDatabase" xml:space="preserve">
+    <value>Generar Base de Dades</value>
+  </data>
 </root>

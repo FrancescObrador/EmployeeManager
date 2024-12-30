@@ -1,5 +1,4 @@
-﻿using HumanResourcesManager.Model;
-using HumanResourcesManager.Utilities;
+﻿using HumanResourcesManager.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +23,17 @@ namespace HumanResourcesManager.ViewModel
             {
                 _selectedItem = value;
                 OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+
+        private bool _isReadOnly;
+        public bool IsReadOnly
+        {
+            get => _isReadOnly;
+            set
+            {
+                _isReadOnly = value;
+                OnPropertyChanged(nameof(IsReadOnly));
             }
         }
 
@@ -101,6 +111,19 @@ namespace HumanResourcesManager.ViewModel
             }
             catch (Exception ex)
             {
+                HandleError(ex);
+            }
+        }
+
+        public void SaveChanges()
+        {
+            try
+            {
+                int saved = _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
                 HandleError(ex);
             }
         }

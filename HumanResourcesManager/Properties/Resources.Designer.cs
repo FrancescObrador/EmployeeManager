@@ -70,6 +70,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edition Mode.
+        /// </summary>
+        public static string editionMode {
+            get {
+                return ResourceManager.GetString("editionMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         public static string employeeDepartment {
@@ -187,6 +196,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate Database.
+        /// </summary>
+        public static string generateDatabase {
+            get {
+                return ResourceManager.GetString("generateDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Languages.
         /// </summary>
         public static string Languages {
@@ -255,6 +273,15 @@ namespace HumanResourcesManager.Properties {
         public static string projectsTitle {
             get {
                 return ResourceManager.GetString("projectsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string saveChanges {
+            get {
+                return ResourceManager.GetString("saveChanges", resourceCulture);
             }
         }
     }

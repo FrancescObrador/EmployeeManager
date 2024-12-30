@@ -15,7 +15,7 @@
         <ToolBar DockPanel.Dock="Top">
             <!--<Button Content="Archivo" /
             <Button Content="Ayuda" />-->
-            <Button Content="Regenerar datos" Click="Button_Click" />
+            <Button Name="btnGenerateDatabase" Content="{Binding Source={x:Static p:Resources.generateDatabase}}" Click="btnGenerateDatabase_Click" />
             <Separator></Separator>
             <Label Name="lblLanguages" Content="{Binding Source={x:Static p:Resources.Languages}}" />
             <ComboBox Name="Languages" Width="150" SelectionChanged="Languages_SelectionChanged">
@@ -26,7 +26,7 @@
         </ToolBar>
 
         <!-- Barra lateral izquierda -->
-        <StackPanel DockPanel.Dock="Left" Background="LightGray" Width="200">
+        <StackPanel DockPanel.Dock="Left" Background="LightBlue" Width="200">
             <Button x:Name="btnPageOne" Content="{Binding Source={x:Static p:Resources.employeesTitle}}" Margin="5" Click="btnPageOne_Click" />
             <Button x:Name="btnPageTwo" Content="{Binding Source={x:Static p:Resources.projectsTitle}}" Margin="5" Click="btnPageTwo_Click" />
             <Button x:Name="btnPageThree" Content="Opción 3" Margin="5" Click="btnPageThree_Click" />

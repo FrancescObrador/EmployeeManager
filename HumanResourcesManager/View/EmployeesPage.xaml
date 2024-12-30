@@ -9,6 +9,7 @@
       xmlns:oxyplot="http://oxyplot.org/wpf" mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="EmployeesPage">
     <Page.Resources>
         <utilities:BitmapImageConverter x:Key="BitmapImageConverter" />
+        <utilities:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <CollectionViewSource x:Key="employeeViewSource" />
     </Page.Resources>
     <Grid>
@@ -18,26 +19,44 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <WrapPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
-                <StackPanel>
-                    <Label Content="Total"></Label>
-                    <TextBlock Text="{Binding Total}"></TextBlock>
-                </StackPanel>
-            </Border>
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
-                <StackPanel>
-                    <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
-                    <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4"/>
-                </StackPanel>
-            </Border>
-        </WrapPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
+        <!-- Encabezado con WrapPanel -->
+        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
+                    <StackPanel>
+                        <Label Content="Total"></Label>
+                        <TextBlock Text="{Binding Total}"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
+                    <StackPanel>
+                        <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
+                        <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4" />
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </DockPanel>
 
-        <Label Grid.Row="1" Margin="7,0" Content="Empleados:" />
-        <!--Lista de datos-->
-        <DataGrid x:Name="employeesDataGrid" Grid.Row="2" ItemsSource="{Binding Source={StaticResource employeeViewSource}}" 
-                  Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
+        <!-- Titulo de empleados, CheckBox y Botón en la misma fila -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0">
+            <Label Content="Empleados:" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
+            <!-- CheckBox para alternar Modo Edición -->
+            <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
+            <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" 
+                    Click="btnSaveChanges_Click" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Lista de datos -->
+        <DataGrid x:Name="employeesDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource employeeViewSource}}" 
+                  Margin="10" AutoGenerateColumns="False" IsReadOnly="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}" RowHeight="100">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Foto" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
@@ -57,6 +76,5 @@
                 <DataGridTextColumn Binding="{Binding department.name}" Header="{Binding Source={x:Static p:Resources.employeeDepartment}}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Page>

@@ -183,4 +183,13 @@
   <data name="employeePerProject" xml:space="preserve">
     <value>Empleados por Proyecto</value>
   </data>
+  <data name="editionMode" xml:space="preserve">
+    <value>Modo Edición</value>
+  </data>
+  <data name="saveChanges" xml:space="preserve">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="generateDatabase" xml:space="preserve">
+    <value>Generar Base de Datos</value>
+  </data>
 </root>

@@ -115,6 +115,7 @@ namespace HumanResourcesManager
                 this.btnPageOne.Content = Properties.Resources.employeesTitle;
                 this.btnPageTwo.Content = Properties.Resources.projectsTitle;
                 this.btnPageOne.Content = Properties.Resources.employeesTitle;
+                this.btnGenerateDatabase.Content = Properties.Resources.generateDatabase;
 
                 foreach (var item in this.Languages.Items.OfType<ComboBoxItem>())
                 {
@@ -134,9 +135,8 @@ namespace HumanResourcesManager
             this.RefreshFrame();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnGenerateDatabase_Click(object sender, RoutedEventArgs e)
         {
-
             InitializeAsync();
         }
     }
