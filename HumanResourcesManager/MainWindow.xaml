@@ -16,6 +16,7 @@
             <!--<Button Content="Archivo" /
             <Button Content="Ayuda" />-->
             <Button Name="btnGenerateDatabase" Content="{Binding Source={x:Static p:Resources.generateDatabase}}" Click="btnGenerateDatabase_Click" />
+            <Button Name="btnPDF" Content="PDF" Click="btnPDF_Click" />
             <Separator></Separator>
             <Label Name="lblLanguages" Content="{Binding Source={x:Static p:Resources.Languages}}" />
             <ComboBox Name="Languages" Width="150" SelectionChanged="Languages_SelectionChanged">

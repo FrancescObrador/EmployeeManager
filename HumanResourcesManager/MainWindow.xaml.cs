@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,8 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataAccess;
+using ExportPDF;
 using HumanResourcesManager.Utilities;
 using HumanResourcesManager.View;
+using Microsoft.Win32;
 
 namespace HumanResourcesManager
 {
@@ -139,5 +143,31 @@ namespace HumanResourcesManager
         {
             InitializeAsync();
         }
+
+        private void btnPDF_Click(object sender, RoutedEventArgs e)
+        {
+            var a = new Payroll(1, DateTime.Now, 20000, 2000, 1800, "Paco", "Arquitecto");
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Archivo PDF|*.pdf";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                PayrollPDFService provinciasPDF = new PayrollPDFService();
+                if (provinciasPDF.SavePDF(a, saveFileDialog.FileName))
+                {
+                    if (MessageBox.Show("Datos exportados a PDF en " + saveFileDialog.FileName + "\n\n ¿Deseas abrirlo?",
+                        "Exportación correcta", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        var p = new Process();
+                        p.StartInfo = new ProcessStartInfo(saveFileDialog.FileName)
+                        {
+                            UseShellExecute = true
+                        };
+                        p.Start();
+                    }
+                }
+            }
+        }
+
     }
 }

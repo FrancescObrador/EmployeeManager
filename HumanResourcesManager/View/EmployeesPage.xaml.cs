@@ -56,5 +56,18 @@ namespace HumanResourcesManager.View
                 }
             }
         }
+
+        private void employeesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(employeesDataGrid.SelectedItem is Employee selectedEmployee)
+            {
+                var detailPage = new EmployeePage
+                {
+                    DataContext = new { SelectedEmployee = selectedEmployee }
+                };
+
+                NavigationService.Navigate(detailPage);
+            }
+        }
     }
 }

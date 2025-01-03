@@ -56,7 +56,7 @@
 
         <!-- Lista de datos -->
         <DataGrid x:Name="employeesDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource employeeViewSource}}" 
-                  Margin="10" AutoGenerateColumns="False" IsReadOnly="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}" RowHeight="100">
+                  Margin="10" AutoGenerateColumns="False" MouseDoubleClick="employeesDataGrid_MouseDoubleClick" IsReadOnly="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}" RowHeight="100">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Foto" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
