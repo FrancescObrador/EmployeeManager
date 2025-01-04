@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HumanResourcesManager.ViewModel
 {
-    class ProjectsViewModel : ViewModelBase<Project>
+    class ProjectCollectionViewModel : CollectionViewModelBase<Project>
     {
         public OxyPlot.PlotModel? PlotModel { get; private set; }
 
-        public ProjectsViewModel() : base()
+        public ProjectCollectionViewModel() : base()
         {
             GenerateChart();
         }

@@ -47,7 +47,9 @@
             <Label Content="Empleados:" VerticalAlignment="Center" />
         </StackPanel>
 
+
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
+            <Button Name="btnAddEmployee" Content="Add Employee" Width="150" Margin="7,0" Click="btnAddEmployee_Click"   />
             <!-- CheckBox para alternar Modo Edición -->
             <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
             <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" 

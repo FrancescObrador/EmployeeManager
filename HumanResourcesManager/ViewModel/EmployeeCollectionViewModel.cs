@@ -18,11 +18,11 @@ using System.Net.WebSockets;
 
 namespace HumanResourcesManager.ViewModel
 {
-    public class EmployeesViewModel : ViewModelBase<Employee>
+    public class EmployeeCollectionViewModel : CollectionViewModelBase<Employee>
     {
         public OxyPlot.PlotModel? PlotModel { get; private set; }
 
-        public EmployeesViewModel() : base() {
+        public EmployeeCollectionViewModel() : base() {
             GenerateChart();
         }
 

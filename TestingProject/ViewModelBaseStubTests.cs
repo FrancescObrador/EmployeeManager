@@ -6,7 +6,7 @@ namespace TestingProject
     [TestClass]
     public sealed class ViewModelBaseStubTests
     {
-        private IViewModel<Employee> _viewModel;
+        private ICollectionViewModel<Employee> _viewModel;
 
         [TestInitialize]
         public void Setup()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HumanResourcesManager.ViewModel
 {
-    public interface IViewModel<T> : INotifyPropertyChanged where T : class
+    public interface ICollectionViewModel<T> : INotifyPropertyChanged where T : class
     {
         T SelectedItem { get; set; }
         ObservableCollection<T> Items { get; set; }

@@ -21,13 +21,13 @@ namespace HumanResourcesManager.View
     /// </summary>
     public partial class ProjectsPage : Page
     {
-        private ProjectsViewModel projectsVM;
+        private ProjectCollectionViewModel projectsVM;
         
         public ProjectsPage()
         {
             InitializeComponent();
 
-            projectsVM = new ProjectsViewModel();
+            projectsVM = new ProjectCollectionViewModel();
             var projectViewSource = (CollectionViewSource)this.Resources["projectsViewSource"];
             projectViewSource.Source = projectsVM.Items;
 

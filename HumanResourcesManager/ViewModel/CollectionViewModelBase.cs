@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace HumanResourcesManager.ViewModel
 {
-    public abstract class ViewModelBase<T> : IViewModel<T> where T : class
+    public abstract class CollectionViewModelBase<T> : ICollectionViewModel<T> where T : class
     {
         private Logger logger;
 
@@ -45,9 +45,9 @@ namespace HumanResourcesManager.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        public ViewModelBase()
+        public CollectionViewModelBase()
         {
-            logger = new Logger(typeof(T).ToString());
+            logger = new Logger(typeof(T).ToString() + " CollectionViewModel");
             _context = new HumanResourcesManagerContext();
             Items = new ObservableCollection<T>();
             Items.CollectionChanged += ItemsCollectionChanged;

@@ -1,4 +1,5 @@
 ﻿using HumanResourcesManager.Model;
+using HumanResourcesManager.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,12 @@ namespace HumanResourcesManager.View
     /// <summary>
     /// Interaction logic for EmployeePage.xaml
     /// </summary>
-    public partial class EmployeePage : Page
+    public partial class EmployeeDetailPage : Page
     {
-        public Employee SelectedEmployee { get; set; }
-
-        public EmployeePage()
+        public EmployeeDetailPage()
         {
             InitializeComponent();
+            DataContext = ApplicationState.Instance;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

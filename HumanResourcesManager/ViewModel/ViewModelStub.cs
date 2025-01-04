@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace HumanResourcesManager.ViewModel
 {
-    public class ViewModelBaseStub<T> : IViewModel<T> where T : class
+    public class ViewModelBaseStub<T> : ICollectionViewModel<T> where T : class
     {
         private T _selectedItem;
 

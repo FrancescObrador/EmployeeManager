@@ -25,13 +25,13 @@ namespace HumanResourcesManager.View
     /// </summary>
     public partial class EmployeesPage : Page
     {
-        private EmployeesViewModel employeesVM;
+        private EmployeeCollectionViewModel employeesVM;
 
         public EmployeesPage()
         {
             InitializeComponent();
 
-            employeesVM = new EmployeesViewModel();
+            employeesVM = new EmployeeCollectionViewModel();
             var employeeViewSource = (CollectionViewSource)this.Resources["employeeViewSource"];
             employeeViewSource.Source = employeesVM.Items;
 
@@ -61,13 +61,17 @@ namespace HumanResourcesManager.View
         {
             if(employeesDataGrid.SelectedItem is Employee selectedEmployee)
             {
-                var detailPage = new EmployeePage
-                {
-                    DataContext = new { SelectedEmployee = selectedEmployee }
-                };
+                ApplicationState.Instance.SelectedEmployee = selectedEmployee;
+                var detailPage = new EmployeeDetailPage();
 
                 NavigationService.Navigate(detailPage);
             }
+        }
+
+        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var addEmployeeWindow = new AddEmployeeWindow();
+            addEmployeeWindow.ShowDialog();
         }
     }
 }

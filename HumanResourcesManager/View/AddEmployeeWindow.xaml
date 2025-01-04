@@ -1,0 +1,30 @@
+﻿<Window x:Class="HumanResourcesManager.View.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:p="clr-namespace:HumanResourcesManager.Properties" 
+        Title="Add New Employee" Height="400" Width="600">
+    <Grid Margin="10">
+        <StackPanel>
+            <Label Content="{Binding Source={x:Static p:Resources.employeeFirstName}}"></Label>
+            <TextBox x:Name="txtFirstName" Margin="5" />
+            
+            <Label Content="{Binding Source={x:Static p:Resources.employeeLastName}}"></Label>
+            <TextBox x:Name="txtLastName" Margin="5" />
+            
+            <Label Content="{Binding Source={x:Static p:Resources.employeeEmail}}"></Label>
+            <TextBox x:Name="txtEmail"  Margin="5" />
+            
+            <Label Content="{Binding Source={x:Static p:Resources.employeePhoneNumber}}"></Label>
+            <TextBox x:Name="txtPhoneNumber" Margin="5" />
+            
+            <Label Content="{Binding Source={x:Static p:Resources.employeePosition}}"></Label>
+            <TextBox x:Name="txtPosition" Margin="5" />
+
+            <ComboBox x:Name="ProjectComboBox" DisplayMemberPath="name" SelectedValuePath="id" />
+            
+            <ComboBox x:Name="DepartmentComboBox" DisplayMemberPath="name" SelectedValuePath="id" />
+
+            <Button Name="btnAddEmployee" Content="Add Employee" Click="btnAddEmployee_Click"  Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>
