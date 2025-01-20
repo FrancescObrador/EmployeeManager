@@ -79,6 +79,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Departments.
+        /// </summary>
+        public static string departmentsTitle {
+            get {
+                return ResourceManager.GetString("departmentsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edition Mode.
         /// </summary>
         public static string editionMode {

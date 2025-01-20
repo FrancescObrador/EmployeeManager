@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HumanResourcesManager.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace HumanResourcesManager.Model
         public int id {  get; set; }
         public string name { get; set; }
         public string description { get; set; }
+
+        public virtual List<Employee> Employees { get; set; }
     }
 }

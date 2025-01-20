@@ -1,8 +1,8 @@
-﻿<Page x:Class="HumanResourcesManager.View.ProjectsPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:HumanResourcesManager.View" xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" xmlns:p="clr-namespace:HumanResourcesManager.Properties" xmlns:oxyplot="http://oxyplot.org/wpf" mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="ProjectsPage">
+﻿<Page x:Class="HumanResourcesManager.View.DepartmentsPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:HumanResourcesManager.View" xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" xmlns:p="clr-namespace:HumanResourcesManager.Properties" xmlns:oxyplot="http://oxyplot.org/wpf" mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="DepartmentsPage">
 
     <Page.Resources>
         <utilities:BitmapImageConverter x:Key="BitmapImageConverter" />
-        <CollectionViewSource x:Key="projectsViewSource" />
+        <CollectionViewSource x:Key="departmentsViewSource" />
     </Page.Resources>
 
     <Grid>
@@ -22,46 +22,42 @@
             <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
                     <StackPanel>
-                        <Label Content="Total:"></Label>
+                        <Label Content="Total Departments:"></Label>
                         <TextBlock Text="{Binding Total}"></TextBlock>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
                     <StackPanel>
-                        <Label Content="{Binding Source={x:Static p:Resources.employeePerProject}}"></Label>
+                        <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
                         <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4" />
                     </StackPanel>
                 </Border>
             </WrapPanel>
         </DockPanel>
 
-        <!-- Titulo de proyectos, Botón para agregar y CheckBox para modo edición -->
+        <!-- Titulo de departamentos, Botón para agregar y CheckBox para modo edición -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0">
-            <Label Content="Projects:" VerticalAlignment="Center" />
+            <Label Content="Departments:" VerticalAlignment="Center" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
-            <Button Name="btnAddProject" Content="Add Project" Width="150" Margin="7,0" Click="btnAddProject_Click" />
+            <Button Name="btnAddDepartment" Content="Add Department" Width="150" Margin="7,0" Click="btnAddDepartment_Click" />
             <!-- No hay modo de edición, pero podemos agregar una opción si es necesario -->
             <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
             <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" Click="btnSaveChanges_Click"  VerticalAlignment="Center" />
         </StackPanel>
 
-        <!-- Lista de proyectos -->
-        <DataGrid x:Name="projectsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource projectsViewSource}}" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
+        <!-- Lista de departamentos -->
+        <DataGrid x:Name="departmentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource departmentsViewSource}}" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding name}" Header="{Binding Source={x:Static p:Resources.projectName}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding description}" Header="{Binding Source={x:Static p:Resources.projectDescription}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding start_date}" Header="{Binding Source={x:Static p:Resources.projectStartDate}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding end_date}" Header="{Binding Source={x:Static p:Resources.projectEndDate}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding budget}" Header="{Binding Source={x:Static p:Resources.projectBudget}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding status}" Header="{Binding Source={x:Static p:Resources.projectStatus}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="*" />
+                <DataGridTextColumn Binding="{Binding description}" Header="Description" Width="*" />
 
                 <!-- Añadir botón de eliminar si es necesario -->
                 <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="btnDeleteProject" Content="{Binding Source={x:Static p:Resources.delete}}" Width="75" Click="btnDeleteProject_Click" />
+                            <Button Name="btnDeleteDepartment" Content="{Binding Source={x:Static p:Resources.delete}}" Width="75" Click="btnDeleteDepartment_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -1,4 +1,5 @@
-﻿using HumanResourcesManager.ViewModel;
+﻿using HumanResourcesManager.Model;
+using HumanResourcesManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,30 @@ namespace HumanResourcesManager.View
             projectViewSource.Source = projectsVM.Items;
 
             this.DataContext = projectsVM;
+        }
+
+        private void btnDeleteProject_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                var project = button.DataContext as Project;
+                if (project != null)
+                {
+                    this.projectsVM.Delete(project);
+                }
+            }
+        }
+
+        private void btnAddProject_Click(object sender, RoutedEventArgs e)
+        {
+            //var addDepartmentWindow = new AddDepartmentWindow();
+            // addDepartmentWindow.ShowDialog();
+        }
+
+        private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            this.projectsVM.SaveChanges();
         }
     }
 }

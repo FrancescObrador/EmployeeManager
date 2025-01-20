@@ -72,6 +72,7 @@ namespace HumanResourcesManager
 
         private void btnPageThree_Click(object sender, RoutedEventArgs e)
         {
+            this.mainFrame.Navigate(new DepartmentsPage());
         }
 
         private void Languages_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -168,6 +169,5 @@ namespace HumanResourcesManager
                 }
             }
         }
-
     }
 }

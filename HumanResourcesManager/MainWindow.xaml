@@ -30,7 +30,7 @@
         <StackPanel DockPanel.Dock="Left" Background="LightBlue" Width="200">
             <Button x:Name="btnPageOne" Content="{Binding Source={x:Static p:Resources.employeesTitle}}" Margin="5" Click="btnPageOne_Click" />
             <Button x:Name="btnPageTwo" Content="{Binding Source={x:Static p:Resources.projectsTitle}}" Margin="5" Click="btnPageTwo_Click" />
-            <Button x:Name="btnPageThree" Content="Opción 3" Margin="5" Click="btnPageThree_Click" />
+            <Button x:Name="btnPageThree" Content="{Binding Source={x:Static p:Resources.departmentsTitle}}" Margin="5" Click="btnPageThree_Click" />
         </StackPanel>
 
         <!-- Contenido principal -->
