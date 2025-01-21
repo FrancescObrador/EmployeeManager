@@ -223,6 +223,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate payroll.
+        /// </summary>
+        public static string generatePayroll {
+            get {
+                return ResourceManager.GetString("generatePayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Languages.
         /// </summary>
         public static string Languages {
@@ -291,6 +300,15 @@ namespace HumanResourcesManager.Properties {
         public static string projectsTitle {
             get {
                 return ResourceManager.GetString("projectsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to the list.
+        /// </summary>
+        public static string Return {
+            get {
+                return ResourceManager.GetString("Return", resourceCulture);
             }
         }
         

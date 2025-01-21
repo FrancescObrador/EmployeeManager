@@ -9,31 +9,37 @@ namespace ExportPDF
 {
     public class PayrollItem
     {
-        public string Code { get; set; } = "1234";
-        public string Concept { get; set; } = "Concepto";
-        public decimal Amount { get; set; } = 1000;
-        public bool IsDeduction { get; set; } = false;
+        public string Concept { get; set; }
+        public decimal Amount { get; set; }
+        public bool IsDeduction { get; set; }
     }
 
     public class Payroll
     {
         public int Id { get; set; } = 1;
         public DateTime PayDate { get; set; } = DateTime.Now;
-        public string Company { get; set; } = "Breach";
-        public string CompanyAddress { get; set; } = "Calle Falsa 123";
-        public string EmployeeName { get; set; } = "Paco";
-        public string Category { get; set; } = "Programador";
+        public string Company { get; set; }
+        public string EmployeeName { get; set; }
+        public string Category { get; set; }
         public string DNI { get; set; } = "1234";
-        public int TotalDays { get; set; } = 20;
-        public decimal TotalEarnings { get; set; } = 20000;
-        public decimal TotalDeductions { get; set; } = 2000;
-        public decimal NetSalary { get; set; } = 20000;
+        public int TotalDays { get; set; } = 30;
+        public decimal GrossSalary => PayrollItems.Where(item => !item.IsDeduction).Sum(item => item.Amount);
+        public decimal Deductions => PayrollItems.Where(item => item.IsDeduction).Sum(item => item.Amount);
+        public decimal NetSalary => GrossSalary - Deductions;
         public List<PayrollItem> PayrollItems { get; set; } = new List<PayrollItem>();
+        public string PhoneNumber { get; set; }
 
-        public Payroll()
+        public Payroll(int id, DateTime payDate, string company, string employeeName, string category, string dni, int totalDays, List<PayrollItem> payrollItems, string phoneNumber)
         {
-            PayrollItems = new List<PayrollItem>();
-            PayrollItems.Add(new PayrollItem());
+            Id = id;
+            PayDate = payDate;
+            Company = company;
+            EmployeeName = employeeName;
+            Category = category;
+            DNI = dni;
+            TotalDays = totalDays;
+            PayrollItems = payrollItems;
+            PhoneNumber = phoneNumber;
         }
     }
 
@@ -47,9 +53,11 @@ namespace ExportPDF
                 Section section = doc.AddSection();
 
                 // Configuración de página
-                section.PageSetup.TopMargin = "1cm";
-                section.PageSetup.LeftMargin = "1cm";
-                section.PageSetup.RightMargin = "1cm";
+                section.PageSetup = doc.DefaultPageSetup.Clone();
+                section.PageSetup.TopMargin = Unit.FromCentimeter(2);
+                section.PageSetup.LeftMargin = Unit.FromCentimeter(2);
+                section.PageSetup.RightMargin = Unit.FromCentimeter(2);
+                section.PageSetup.BottomMargin = Unit.FromCentimeter(2);
 
                 // Cabecera
                 AddHeaderTable(section, payroll);
@@ -88,18 +96,16 @@ namespace ExportPDF
             headerTable.Borders.Width = 0.75;
 
             // Configurar columnas
-            headerTable.AddColumn("8cm");
-            headerTable.AddColumn("8cm");
+            headerTable.AddColumn("16cm");
 
             // Primera fila
             Row row = headerTable.AddRow();
+            row.Shading.Color = Colors.LightGray;
             row.Cells[0].AddParagraph("EMPRESA").Format.Font.Bold = true;
-            row.Cells[1].AddParagraph("DOMICILIO").Format.Font.Bold = true;
 
             // Segunda fila
             row = headerTable.AddRow();
             row.Cells[0].AddParagraph(payroll.Company);
-            row.Cells[1].AddParagraph(payroll.CompanyAddress);
 
             SetTableStyle(headerTable);
         }
@@ -109,19 +115,23 @@ namespace ExportPDF
             Table employeeTable = section.AddTable();
             employeeTable.Borders.Width = 0.75;
 
-            employeeTable.AddColumn("8cm");
-            employeeTable.AddColumn("4cm");
+            employeeTable.AddColumn("6cm");
+            employeeTable.AddColumn("3cm");
+            employeeTable.AddColumn("3cm");
             employeeTable.AddColumn("4cm");
 
             Row row = employeeTable.AddRow();
+            row.Shading.Color = Colors.LightGray;
             row.Cells[0].AddParagraph("TRABAJADOR/A").Format.Font.Bold = true;
             row.Cells[1].AddParagraph("CATEGORÍA").Format.Font.Bold = true;
             row.Cells[2].AddParagraph("D.N.I.").Format.Font.Bold = true;
+            row.Cells[3].AddParagraph("TELÉFONO").Format.Font.Bold = true;
 
             row = employeeTable.AddRow();
             row.Cells[0].AddParagraph(payroll.EmployeeName);
             row.Cells[1].AddParagraph(payroll.Category);
             row.Cells[2].AddParagraph(payroll.DNI);
+            row.Cells[3].AddParagraph(payroll.PhoneNumber);
 
             SetTableStyle(employeeTable);
         }
@@ -130,36 +140,45 @@ namespace ExportPDF
         {
             Table itemsTable = section.AddTable();
             itemsTable.Borders.Width = 0.75;
+            itemsTable.Rows.LeftIndent = 0;
 
             itemsTable.AddColumn("2cm"); // Cuantía
             itemsTable.AddColumn("2cm"); // Precio
-            itemsTable.AddColumn("2cm"); // Código
-            itemsTable.AddColumn("4cm"); // Concepto
+            itemsTable.AddColumn("6cm"); // Concepto
             itemsTable.AddColumn("3cm"); // Devengos
             itemsTable.AddColumn("3cm"); // Deducciones
 
             // Cabecera
             Row headerRow = itemsTable.AddRow();
+            headerRow.Shading.Color = Colors.LightGray;
             headerRow.Cells[0].AddParagraph("CUANTÍA").Format.Font.Bold = true;
             headerRow.Cells[1].AddParagraph("PRECIO").Format.Font.Bold = true;
-            headerRow.Cells[2].AddParagraph("COD").Format.Font.Bold = true;
-            headerRow.Cells[3].AddParagraph("CONCEPTO").Format.Font.Bold = true;
-            headerRow.Cells[4].AddParagraph("DEVENGOS").Format.Font.Bold = true;
-            headerRow.Cells[5].AddParagraph("DEDUCCIONES").Format.Font.Bold = true;
+            headerRow.Cells[2].AddParagraph("CONCEPTO").Format.Font.Bold = true;
+            headerRow.Cells[3].AddParagraph("DEVENGOS").Format.Font.Bold = true;
+            headerRow.Cells[4].AddParagraph("DEDUCCIONES").Format.Font.Bold = true;
 
             // Conceptos
             foreach (var item in payroll.PayrollItems)
             {
                 Row row = itemsTable.AddRow();
-                row.Cells[2].AddParagraph(item.Code);
-                row.Cells[3].AddParagraph(item.Concept);
+                row.Cells[2].AddParagraph(item.Concept);
                 if (item.IsDeduction)
-                    row.Cells[5].AddParagraph(item.Amount.ToString("N2"));
-                else
                     row.Cells[4].AddParagraph(item.Amount.ToString("N2"));
+                else
+                    row.Cells[3].AddParagraph(item.Amount.ToString("N2"));
             }
 
-            SetTableStyle(itemsTable);
+            // Agregar filas en blanco
+            for (int i = 0; i < 2; i++)
+            {
+                Row row = itemsTable.AddRow();
+                row.Borders.Left.Width = 0.75;
+                row.Borders.Right.Width = 0.75;
+                row.Borders.Top.Width = 0;
+                row.Borders.Bottom.Width = 0;
+            }
+
+            SetTableStyle(itemsTable, false);
         }
 
         private void AddTotalsTable(Section section, Payroll payroll)
@@ -173,16 +192,17 @@ namespace ExportPDF
             totalsTable.AddColumn("4cm");
 
             Row row = totalsTable.AddRow();
+            row.Shading.Color = Colors.LightGray;
             row.Cells[0].AddParagraph("REM. TOTAL").Format.Font.Bold = true;
             row.Cells[1].AddParagraph("BASE S.S.").Format.Font.Bold = true;
             row.Cells[2].AddParagraph("BASE I.R.P.F.").Format.Font.Bold = true;
             row.Cells[3].AddParagraph("T. A DEDUCIR").Format.Font.Bold = true;
 
             row = totalsTable.AddRow();
-            row.Cells[0].AddParagraph(payroll.TotalEarnings.ToString("N2"));
-            row.Cells[1].AddParagraph(payroll.TotalEarnings.ToString("N2"));
-            row.Cells[2].AddParagraph(payroll.TotalEarnings.ToString("N2"));
-            row.Cells[3].AddParagraph(payroll.TotalDeductions.ToString("N2"));
+            row.Cells[0].AddParagraph(payroll.GrossSalary.ToString("N2"));
+            row.Cells[1].AddParagraph(payroll.GrossSalary.ToString("N2"));
+            row.Cells[2].AddParagraph(payroll.GrossSalary.ToString("N2"));
+            row.Cells[3].AddParagraph(payroll.Deductions.ToString("N2"));
 
             SetTableStyle(totalsTable);
         }
@@ -195,6 +215,7 @@ namespace ExportPDF
             footerTable.AddColumn("16cm");
 
             Row row = footerTable.AddRow();
+            row.Shading.Color = Colors.LightGray;
             row.Cells[0].AddParagraph($"FECHA: {payroll.PayDate:dd MMMM yyyy}");
 
             row = footerTable.AddRow();
@@ -203,11 +224,25 @@ namespace ExportPDF
             SetTableStyle(footerTable);
         }
 
-        private void SetTableStyle(Table table)
+        private void SetTableStyle(Table table, bool includeInnerBorders = true)
         {
-            table.Format.Font.Size = 9;
+            table.Format.Font.Size = 10;
+            table.Format.Font.Name = "Arial";
             table.Format.Alignment = ParagraphAlignment.Left;
             table.Rows.LeftIndent = 0;
+
+            foreach (Row row in table.Rows)
+            {
+                foreach (Cell cell in row.Cells)
+                {
+                    cell.Borders.Width = 0.75;
+                    if (!includeInnerBorders)
+                    {
+                        cell.Borders.Top.Width = 0;
+                        cell.Borders.Bottom.Width = 0;
+                    }
+                }
+            }
         }
     }
 }

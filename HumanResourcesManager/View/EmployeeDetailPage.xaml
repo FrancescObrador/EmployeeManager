@@ -72,7 +72,8 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnBack" Content="Back" Width="100" Click="btnBack_Click" />
+            <Button x:Name="btnPDF" Content="{Binding Source={x:Static p:Resources.generatePayroll}}" Width="100" Click="btnPDF_Click"  />
+            <Button x:Name="btnBack" Content="{Binding Source={x:Static p:Resources.Return}}" Width="100" Click="btnBack_Click" />
         </StackPanel>
     </Grid>
 </Page>

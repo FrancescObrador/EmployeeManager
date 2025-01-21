@@ -26,11 +26,16 @@ namespace HumanResourcesManager.Model
         [ForeignKey("department_id")]
         public virtual Department department { get; set; }
 
+        [ForeignKey("employee_id")]
+        public virtual List<Payroll> Payrolls { get; set; }
+
         public virtual List<EmployeeProject> EmployeeProjects { get; set; }
 
         public Employee()
         {
 
         }
+
+        public string FullName => $"{first_name} {last_name}";
     }
 }

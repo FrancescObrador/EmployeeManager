@@ -198,4 +198,10 @@
   <data name="departmentsTitle" xml:space="preserve">
     <value>Departamentos</value>
   </data>
+  <data name="Return" xml:space="preserve">
+    <value>Volver a la lista</value>
+  </data>
+  <data name="generatePayroll" xml:space="preserve">
+    <value>Generar nómina</value>
+  </data>
 </root>

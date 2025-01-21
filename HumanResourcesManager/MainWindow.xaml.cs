@@ -144,30 +144,5 @@ namespace HumanResourcesManager
         {
             InitializeAsync();
         }
-
-        private void btnPDF_Click(object sender, RoutedEventArgs e)
-        {
-            var a = new Payroll();
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Archivo PDF|*.pdf";
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                PayrollPDFService provinciasPDF = new PayrollPDFService();
-                if (provinciasPDF.SavePDF(a, saveFileDialog.FileName))
-                {
-                    if (MessageBox.Show("Datos exportados a PDF en " + saveFileDialog.FileName + "\n\n ¿Deseas abrirlo?",
-                        "Exportación correcta", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                    {
-                        var p = new Process();
-                        p.StartInfo = new ProcessStartInfo(saveFileDialog.FileName)
-                        {
-                            UseShellExecute = true
-                        };
-                        p.Start();
-                    }
-                }
-            }
-        }
     }
 }
