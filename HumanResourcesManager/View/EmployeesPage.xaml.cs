@@ -59,19 +59,24 @@ namespace HumanResourcesManager.View
 
         private void employeesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(employeesDataGrid.SelectedItem is Employee selectedEmployee)
-            {
-                ApplicationState.Instance.SelectedEmployee = selectedEmployee;
-                var detailPage = new EmployeeDetailPage();
-
-                NavigationService.Navigate(detailPage);
-            }
+          
         }
 
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeWindow = new AddEmployeeWindow();
             addEmployeeWindow.ShowDialog();
+        }
+
+        private void employeesDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (employeesDataGrid.SelectedItem is Employee selectedEmployee)
+            {
+                ApplicationState.Instance.SelectedEmployee = selectedEmployee;
+                var detailPage = new EmployeeDetailPage();
+
+                NavigationService.Navigate(detailPage);
+            }
         }
     }
 }
