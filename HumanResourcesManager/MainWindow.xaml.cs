@@ -147,7 +147,7 @@ namespace HumanResourcesManager
 
         private void btnPDF_Click(object sender, RoutedEventArgs e)
         {
-            var a = new Payroll(1, DateTime.Now, 20000, 2000, 1800, "Paco", "Arquitecto");
+            var a = new Payroll();
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Archivo PDF|*.pdf";
