@@ -22,14 +22,13 @@ namespace ExportPDF
         public string EmployeeName { get; set; }
         public string Category { get; set; }
         public string DNI { get; set; } = "1234";
-        public int TotalDays { get; set; } = 30;
         public decimal GrossSalary => PayrollItems.Where(item => !item.IsDeduction).Sum(item => item.Amount);
         public decimal Deductions => PayrollItems.Where(item => item.IsDeduction).Sum(item => item.Amount);
         public decimal NetSalary => GrossSalary - Deductions;
         public List<PayrollItem> PayrollItems { get; set; } = new List<PayrollItem>();
         public string PhoneNumber { get; set; }
 
-        public Payroll(int id, DateTime payDate, string company, string employeeName, string category, string dni, int totalDays, List<PayrollItem> payrollItems, string phoneNumber)
+        public Payroll(int id, DateTime payDate, string company, string employeeName, string category, string dni, List<PayrollItem> payrollItems, string phoneNumber)
         {
             Id = id;
             PayDate = payDate;
@@ -37,7 +36,6 @@ namespace ExportPDF
             EmployeeName = employeeName;
             Category = category;
             DNI = dni;
-            TotalDays = totalDays;
             PayrollItems = payrollItems;
             PhoneNumber = phoneNumber;
         }

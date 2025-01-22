@@ -47,7 +47,7 @@ namespace HumanResourcesManager.View
 
             var a = new ExportPDF.Payroll(empleado.id, DateTime.Now, "Euryst SL",
                 empleado.FullName, empleado.position,
-                "41624302Y", 30, new List<PayrollItem>() { primer, segundo }, empleado.phone_number);
+                "41624302Y", new List<PayrollItem>() { primer, segundo }, empleado.phone_number);
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Archivo PDF|*.pdf";
