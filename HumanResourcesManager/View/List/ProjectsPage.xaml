@@ -37,18 +37,19 @@
 
         <!-- Titulo de proyectos, Botón para agregar y CheckBox para modo edición -->
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0">
-            <Label Content="Projects:" VerticalAlignment="Center" />
+            <Label Content="{Binding Source={x:Static p:Resources.projectsTitle}}" VerticalAlignment="Center" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
-            <Button Name="btnAddProject" Content="Add Project" Width="150" Margin="7,0" Click="btnAddProject_Click" />
+            <Button Name="btnAddProject" Content="{Binding Source={x:Static p:Resources.addProject}}" Width="150" Margin="7,0" Click="btnAddProject_Click" />
             <!-- No hay modo de edición, pero podemos agregar una opción si es necesario -->
             <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
             <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" Click="btnSaveChanges_Click"  VerticalAlignment="Center" />
         </StackPanel>
 
         <!-- Lista de proyectos -->
-        <DataGrid x:Name="projectsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource projectsViewSource}}" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
+        <DataGrid x:Name="projectsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource projectsViewSource}}" Margin="10" 
+                  AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100" MouseRightButtonDown="projectsDataGrid_MouseRightButtonDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding name}" Header="{Binding Source={x:Static p:Resources.projectName}}" Width="*" />
                 <DataGridTextColumn Binding="{Binding description}" Header="{Binding Source={x:Static p:Resources.projectDescription}}" Width="*" />

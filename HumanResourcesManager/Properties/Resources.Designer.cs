@@ -61,6 +61,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add project.
+        /// </summary>
+        public static string addProject {
+            get {
+                return ResourceManager.GetString("addProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catalan.
         /// </summary>
         public static string ca_ES {

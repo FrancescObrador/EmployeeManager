@@ -87,11 +87,6 @@ ALTER TABLE [employee_project]
 ALTER TABLE [time_off_request] 
     ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
 
-ALTER TABLE [payroll] 
-    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
-
--- Aquí puedes continuar con el código para insertar datos
-
 
 ---------- Populate ----------
 
@@ -134,9 +129,9 @@ INSERT INTO @Positions VALUES
 ('Engineer'), ('Consultant'), ('Specialist'), ('Assistant'),
 ('Technician'), ('Director');
 
--- Generar 60 empleados ficticios
+-- Generar 50 empleados ficticios
 DECLARE @i INT = 1;
-WHILE @i <= 60
+WHILE @i <= 50
 BEGIN
     DECLARE @FirstName VARCHAR(255);
     IF RAND() < 0.5 -- Probabilidad del 50%
@@ -169,28 +164,36 @@ VALUES
 
 -- Asignar empleados a proyectos
 DECLARE @EmployeeCount INT = (SELECT COUNT(*) FROM employee);
+DECLARE @ProjectCount INT = (SELECT COUNT(*) FROM project);
 SET @i = 1;
 
 WHILE @i <= @EmployeeCount
 BEGIN
-    -- Asignar cada empleado al menos a un proyecto
+    -- Obtener el ID y la posición del empleado actual
     DECLARE @EmployeeId INT = (SELECT id FROM employee ORDER BY id OFFSET @i - 1 ROWS FETCH NEXT 1 ROWS ONLY);
+    DECLARE @PositionRol VARCHAR(100) = (SELECT position FROM employee WHERE id = @EmployeeId);
+
+    -- Asignar cada empleado a un proyecto aleatorio
     DECLARE @ProjectId INT = (SELECT id FROM project ORDER BY NEWID() OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY);
 
-    -- Insertar asignación
+    -- Insertar asignación con el rol basado en la posición del empleado
     INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
-    VALUES (@EmployeeId, @ProjectId, 'Team Member', GETDATE(), NULL);
+    VALUES (@EmployeeId, @ProjectId, @PositionRol, GETDATE(), NULL);
 
     -- Asignar a un segundo proyecto para algunos empleados (probabilidad del 50%)
     IF RAND() < 0.5
     BEGIN
-        DECLARE @SecondProjectId INT = (SELECT id FROM project WHERE id != @ProjectId ORDER BY NEWID() OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY);
-        INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
-        VALUES (@EmployeeId, @SecondProjectId, 'Team Member', GETDATE(), NULL);
+        DECLARE @SecondProjectId INT = (SELECT TOP 1 id FROM project WHERE id != @ProjectId ORDER BY NEWID());
+        IF @SecondProjectId IS NOT NULL
+        BEGIN
+            INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
+            VALUES (@EmployeeId, @SecondProjectId, @PositionRol, GETDATE(), NULL);
+        END
     END
 
     SET @i = @i + 1;
 END;
+
 
 -- Declare variables for the last three months
 DECLARE @CurrentMonth DATE = GETDATE();

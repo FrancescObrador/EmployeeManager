@@ -216,4 +216,7 @@
   <data name="txtWantToRegenerateDB" xml:space="preserve">
     <value>Vols regenerar la base de dades? Selecciona un fitxer SQL, aquest projecte conté build.sql. Això pot trigar uns minuts.</value>
   </data>
+  <data name="addProject" xml:space="preserve">
+    <value>Afegir projecte</value>
+  </data>
 </root>

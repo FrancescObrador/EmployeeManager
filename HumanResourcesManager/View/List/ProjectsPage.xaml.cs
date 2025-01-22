@@ -1,4 +1,6 @@
 ﻿using HumanResourcesManager.Model;
+using HumanResourcesManager.Utilities;
+using HumanResourcesManager.View.Detail;
 using HumanResourcesManager.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -57,6 +59,17 @@ namespace HumanResourcesManager.View
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
             this.projectsVM.SaveChanges();
+        }
+
+        private void projectsDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (projectsDataGrid.SelectedItem is Project selectedProject)
+            {
+                ApplicationState.Instance.SelectedProject = selectedProject;
+                var detailPage = new ProjectDetailPage();
+
+                NavigationService.Navigate(detailPage);
+            }
         }
     }
 }

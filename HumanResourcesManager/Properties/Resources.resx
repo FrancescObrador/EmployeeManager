@@ -216,4 +216,7 @@
   <data name="txtWantToRegenerateDB" xml:space="preserve">
     <value>Do you want to regenerate the database? Select an SQL file, this project contains build.sql. This may take a few minutes.</value>
   </data>
+  <data name="addProject" xml:space="preserve">
+    <value>Add project</value>
+  </data>
 </root>

@@ -57,6 +57,9 @@ namespace HumanResourcesManager.Utilities
         {
             await ExecuteSqlScriptAsync();
             await AddEmployeesPictures();
+            await _context.DisposeAsync();
+            _context = new HumanResourcesManagerContext();
+
         }
 
         private async Task AddEmployeesPictures()

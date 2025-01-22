@@ -118,7 +118,7 @@ namespace HumanResourcesManager
                 this.lblLanguages.Content = Properties.Resources.Languages;
                 this.btnPageOne.Content = Properties.Resources.employeesTitle;
                 this.btnPageTwo.Content = Properties.Resources.projectsTitle;
-                this.btnPageOne.Content = Properties.Resources.employeesTitle;
+                this.btnPageThree.Content = Properties.Resources.departmentsTitle;
                 this.btnGenerateDatabase.Content = Properties.Resources.generateDatabase;
 
                 foreach (var item in this.Languages.Items.OfType<ComboBoxItem>())

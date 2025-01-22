@@ -172,7 +172,7 @@
     <value>Salario</value>
   </data>
   <data name="employeeDepartment" xml:space="preserve">
-    <value>Departament</value>
+    <value>Departamento</value>
   </data>
   <data name="employeeEmail" xml:space="preserve">
     <value>Correo Electrónico</value>
@@ -215,5 +215,8 @@
   </data>
   <data name="txtWantToRegenerateDB" xml:space="preserve">
     <value>¿Quieres regenerar la base de datos? Selecciona un archivo sql, este proyecto contiene build.sql. Esto puede tardar unos minutos.</value>
+  </data>
+  <data name="addProject" xml:space="preserve">
+    <value>Añadir proyecto</value>
   </data>
 </root>
