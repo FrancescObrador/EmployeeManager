@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Runtime.CompilerServices;
 using OxyPlot.Legends;
 using System.Net.WebSockets;
+using HumanResourcesManager.ViewModel.Base;
 
 namespace HumanResourcesManager.ViewModel
 {

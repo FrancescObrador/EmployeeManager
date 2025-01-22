@@ -70,6 +70,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The database has been initialized successfully..
+        /// </summary>
+        public static string dbInitialized {
+            get {
+                return ResourceManager.GetString("dbInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string delete {
@@ -84,6 +93,15 @@ namespace HumanResourcesManager.Properties {
         public static string departmentsTitle {
             get {
                 return ResourceManager.GetString("departmentsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string done {
+            get {
+                return ResourceManager.GetString("done", resourceCulture);
             }
         }
         
@@ -304,6 +322,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regenerate Database..
+        /// </summary>
+        public static string regenerateDatabase {
+            get {
+                return ResourceManager.GetString("regenerateDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return to the list.
         /// </summary>
         public static string Return {
@@ -318,6 +345,15 @@ namespace HumanResourcesManager.Properties {
         public static string saveChanges {
             get {
                 return ResourceManager.GetString("saveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to regenerate the database? Select an SQL file, this project contains build.sql. This may take a few minutes..
+        /// </summary>
+        public static string txtWantToRegenerateDB {
+            get {
+                return ResourceManager.GetString("txtWantToRegenerateDB", resourceCulture);
             }
         }
     }

@@ -42,13 +42,13 @@ namespace HumanResourcesManager
 
         private async void InitializeAsync()
         {
-            var result = MessageBox.Show("¿Quieres regenerar la base de datos? Selecciona un archivo sql, este proyecto contiene build.sql. Esto puede tardar unos minutos.", "Regenerar Base de datos", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(Properties.Resources.txtWantToRegenerateDB, Properties.Resources.regenerateDatabase, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
                 await InitializeDatabase(() =>
                 {
-                    MessageBox.Show("La base de datos ha sido inicializada correctamente.", "Todo listo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Properties.Resources.dbInitialized, Properties.Resources.done, MessageBoxButton.OK, MessageBoxImage.Information);
                 });
             }
         }
@@ -107,7 +107,6 @@ namespace HumanResourcesManager
             if (this.mainFrame?.Content is Page currentPage)
             {
                 var pageType = currentPage.GetType(); 
-                this.mainFrame.Navigate(null); 
                 this.mainFrame.Navigate(Activator.CreateInstance(pageType));
             }
         }

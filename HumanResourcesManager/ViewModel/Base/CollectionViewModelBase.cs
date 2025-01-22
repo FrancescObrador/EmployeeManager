@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.Base
 {
     public abstract class CollectionViewModelBase<T> : ICollectionViewModel<T> where T : class
     {
@@ -67,29 +67,14 @@ namespace HumanResourcesManager.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Create(T newItem)
+        public async void Create(T newItem)
         {
             try
             {
                 _context.Set<T>().Add(newItem);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 Items.Add(newItem);
                 SelectedItem = newItem;
-            }
-            catch (Exception ex)
-            {
-               HandleError(ex);
-            }
-        }
-
-        public void Update(T item)
-        {
-            try
-            {
-
-                _context.Entry(item).State = EntityState.Modified;
-                _context.SaveChanges();
-                
             }
             catch (Exception ex)
             {
@@ -97,14 +82,29 @@ namespace HumanResourcesManager.ViewModel
             }
         }
 
-        public void Delete()
+        public async void Update(T item)
+        {
+            try
+            {
+
+                _context.Entry(item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+        }
+
+        public async void Delete()
         {
             try
             {
                 if (SelectedItem != null)
                 {
                     _context.Set<T>().Remove(SelectedItem);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     Items.Remove(SelectedItem);
                     SelectedItem = default;
                 }
@@ -115,12 +115,12 @@ namespace HumanResourcesManager.ViewModel
             }
         }
 
-        public void Delete(T item)
+        public async void Delete(T item)
         {
             try
             {
                 _context.Set<T>().Remove(item);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 Items.Remove(item);
             }
             catch (Exception ex)
@@ -129,11 +129,11 @@ namespace HumanResourcesManager.ViewModel
             }
         }
 
-        public void SaveChanges()
+        public async void SaveChanges()
         {
             try
             {
-                int saved = _context.SaveChanges();
+                int saved = await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

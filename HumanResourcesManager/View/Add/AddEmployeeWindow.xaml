@@ -20,6 +20,9 @@
             <Label Content="{Binding Source={x:Static p:Resources.employeePosition}}"></Label>
             <TextBox x:Name="txtPosition" Margin="5" />
 
+            <Label Content="{Binding Source={x:Static p:Resources.employeeSalary}}"></Label>
+            <TextBox x:Name="txtSalary" Margin="5" />
+
             <ComboBox x:Name="ProjectComboBox" DisplayMemberPath="name" SelectedValuePath="id" />
             
             <ComboBox x:Name="DepartmentComboBox" DisplayMemberPath="name" SelectedValuePath="id" />

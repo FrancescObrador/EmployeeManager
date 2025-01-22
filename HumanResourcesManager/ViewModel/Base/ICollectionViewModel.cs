@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.Base
 {
     public interface ICollectionViewModel<T> : INotifyPropertyChanged where T : class
     {

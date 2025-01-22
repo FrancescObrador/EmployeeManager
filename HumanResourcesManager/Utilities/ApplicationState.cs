@@ -19,6 +19,8 @@ namespace HumanResourcesManager.Utilities
         private ApplicationState() { }
 
         public Employee? SelectedEmployee { get; set; }
+        public Department? SelectedDepartment { get; set; }
+        public Project? SelectedProject { get; set; }
 
     }
 }

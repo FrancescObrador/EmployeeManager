@@ -204,4 +204,16 @@
   <data name="generatePayroll" xml:space="preserve">
     <value>Generar nómina</value>
   </data>
+  <data name="done" xml:space="preserve">
+    <value>Tot a punt</value>
+  </data>
+  <data name="dbInitialized" xml:space="preserve">
+    <value>La base de dades s'ha inicialitzat correctament.</value>
+  </data>
+  <data name="regenerateDatabase" xml:space="preserve">
+    <value>Regenerar Base de dades.</value>
+  </data>
+  <data name="txtWantToRegenerateDB" xml:space="preserve">
+    <value>Vols regenerar la base de dades? Selecciona un fitxer SQL, aquest projecte conté build.sql. Això pot trigar uns minuts.</value>
+  </data>
 </root>

@@ -40,6 +40,7 @@ namespace HumanResourcesManager.View
                 phone_number = txtPhoneNumber.Text,
                 position = txtPosition.Text,
                 hire_date = DateTime.Now,
+                salary = txtSalary.Text == "" ? 0 : decimal.Parse(txtSalary.Text),
                 EmployeeProjects = new List<EmployeeProject>
                 {
                     new EmployeeProject

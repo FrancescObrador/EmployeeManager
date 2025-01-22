@@ -57,11 +57,6 @@ namespace HumanResourcesManager.View
             }
         }
 
-        private void employeesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-          
-        }
-
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeWindow = new AddEmployeeWindow();

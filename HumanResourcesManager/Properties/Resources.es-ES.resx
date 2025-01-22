@@ -204,4 +204,16 @@
   <data name="generatePayroll" xml:space="preserve">
     <value>Generar nómina</value>
   </data>
+  <data name="done" xml:space="preserve">
+    <value>Todo listo</value>
+  </data>
+  <data name="dbInitialized" xml:space="preserve">
+    <value>La base de datos ha sido inicializada correctamente.</value>
+  </data>
+  <data name="regenerateDatabase" xml:space="preserve">
+    <value>Regenerar Base de datos</value>
+  </data>
+  <data name="txtWantToRegenerateDB" xml:space="preserve">
+    <value>¿Quieres regenerar la base de datos? Selecciona un archivo sql, este proyecto contiene build.sql. Esto puede tardar unos minutos.</value>
+  </data>
 </root>

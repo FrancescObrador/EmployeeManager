@@ -1,5 +1,6 @@
 ﻿using HumanResourcesManager.Model;
 using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.ViewModel.Base;
 
 namespace TestingProject
 {

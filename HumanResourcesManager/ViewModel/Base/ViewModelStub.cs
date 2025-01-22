@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.Base
 {
     public class ViewModelBaseStub<T> : ICollectionViewModel<T> where T : class
     {
