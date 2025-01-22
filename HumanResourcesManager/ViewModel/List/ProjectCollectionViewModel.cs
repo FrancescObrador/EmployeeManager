@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using HumanResourcesManager.ViewModel.Base;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.List
 {
     class ProjectCollectionViewModel : CollectionViewModelBase<Project>
     {
-        public OxyPlot.PlotModel? PlotModel { get; private set; }
+        public PlotModel? PlotModel { get; private set; }
 
         public ProjectCollectionViewModel() : base()
         {
@@ -22,7 +22,7 @@ namespace HumanResourcesManager.ViewModel
 
         private void GenerateChart()
         {
-            this.PlotModel = new PlotModel();
+            PlotModel = new PlotModel();
 
             dynamic seriesP1 = new PieSeries
             {

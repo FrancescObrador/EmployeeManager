@@ -1,5 +1,5 @@
 ﻿using HumanResourcesManager.Model;
-using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.ViewModel.Add;
 using System.Windows;
 
 namespace HumanResourcesManager.View

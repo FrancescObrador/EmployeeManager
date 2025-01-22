@@ -1,7 +1,7 @@
 ﻿using HumanResourcesManager.Model;
 using HumanResourcesManager.Utilities;
 using HumanResourcesManager.View.Detail;
-using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.ViewModel.List;
 using System;
 using System.Collections.Generic;
 using System.Linq;

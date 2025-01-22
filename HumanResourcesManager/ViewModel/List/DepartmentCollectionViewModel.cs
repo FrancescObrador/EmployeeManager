@@ -8,20 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using HumanResourcesManager.ViewModel.Base;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.List
 {
     public class DepartmentCollectionViewModel : CollectionViewModelBase<Department>
     {
-        public OxyPlot.PlotModel? PlotModel { get; private set; }
+        public PlotModel? PlotModel { get; private set; }
 
-        public DepartmentCollectionViewModel(): base()
+        public DepartmentCollectionViewModel() : base()
         {
             GenerateChart();
         }
 
         private void GenerateChart()
         {
-            this.PlotModel = new PlotModel();
+            PlotModel = new PlotModel();
 
             dynamic seriesP1 = new PieSeries
             {

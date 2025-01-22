@@ -219,4 +219,16 @@
   <data name="addProject" xml:space="preserve">
     <value>Add project</value>
   </data>
+  <data name="payDay" xml:space="preserve">
+    <value>Pay day</value>
+  </data>
+  <data name="grossSalary" xml:space="preserve">
+    <value>Gross salary</value>
+  </data>
+  <data name="netSalary" xml:space="preserve">
+    <value>Net salary</value>
+  </data>
+  <data name="deductions" xml:space="preserve">
+    <value>Deductions</value>
+  </data>
 </root>

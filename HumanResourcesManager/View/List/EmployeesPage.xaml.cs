@@ -1,6 +1,6 @@
 ﻿using HumanResourcesManager.Model;
 using HumanResourcesManager.Utilities;
-using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.ViewModel.List;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;

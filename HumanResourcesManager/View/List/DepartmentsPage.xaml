@@ -50,15 +50,16 @@
             <Label Content="Departments:" VerticalAlignment="Center" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
             <Button Name="btnAddDepartment" Content="Add Department" Width="150" Margin="7,0" Click="btnAddDepartment_Click" />
-            <!-- No hay modo de edición, pero podemos agregar una opción si es necesario -->
+            --><!-- No hay modo de edición, pero podemos agregar una opción si es necesario --><!--
             <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
             <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" Click="btnSaveChanges_Click"  VerticalAlignment="Center" />
-        </StackPanel>
+        </StackPanel>-->
 
         <!-- Lista de departamentos -->
-        <DataGrid x:Name="departmentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource departmentsViewSource}}" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
+        <DataGrid x:Name="departmentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource departmentsViewSource}}" 
+                  MouseRightButtonDown="departmentsDataGrid_MouseRightButtonDown" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="*" />
                 <DataGridTextColumn Binding="{Binding description}" Header="Description" Width="*" />

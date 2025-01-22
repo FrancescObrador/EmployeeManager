@@ -17,33 +17,34 @@ using OxyPlot.Legends;
 using System.Net.WebSockets;
 using HumanResourcesManager.ViewModel.Base;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.List
 {
     public class EmployeeCollectionViewModel : CollectionViewModelBase<Employee>
     {
-        public OxyPlot.PlotModel? PlotModel { get; private set; }
+        public PlotModel? PlotModel { get; private set; }
 
-        public EmployeeCollectionViewModel() : base() {
+        public EmployeeCollectionViewModel() : base()
+        {
             GenerateChart();
         }
 
         public void GenerateChart()
         {
-            this.PlotModel = new PlotModel();
+            PlotModel = new PlotModel();
 
             dynamic seriesP1 = new PieSeries
             {
-                StrokeThickness = 0, 
+                StrokeThickness = 0,
                 InsideLabelPosition = 0.6,
                 AngleSpan = 360,
                 StartAngle = 0,
                 InsideLabelColor = OxyColors.White,
-                TextColor = OxyColors.Gray, 
+                TextColor = OxyColors.Gray,
                 FontSize = 14,
                 InnerDiameter = 0.4
             };
 
-            var departmentGroups = this.Items
+            var departmentGroups = Items
                .GroupBy(item => item.department.name)
                .Select(group => new
                {

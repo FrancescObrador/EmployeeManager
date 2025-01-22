@@ -88,6 +88,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deductions.
+        /// </summary>
+        public static string deductions {
+            get {
+                return ResourceManager.GetString("deductions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string delete {
@@ -259,11 +268,38 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gross salary.
+        /// </summary>
+        public static string grossSalary {
+            get {
+                return ResourceManager.GetString("grossSalary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Languages.
         /// </summary>
         public static string Languages {
             get {
                 return ResourceManager.GetString("Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net salary.
+        /// </summary>
+        public static string netSalary {
+            get {
+                return ResourceManager.GetString("netSalary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay day.
+        /// </summary>
+        public static string payDay {
+            get {
+                return ResourceManager.GetString("payDay", resourceCulture);
             }
         }
         

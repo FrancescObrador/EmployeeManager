@@ -1,11 +1,6 @@
-﻿using ExportPDF;
-using HumanResourcesManager.Model;
-using HumanResourcesManager.Utilities;
-using HumanResourcesManager.ViewModel.Detail;
-using Microsoft.Win32;
+﻿using HumanResourcesManager.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HumanResourcesManager.View
+namespace HumanResourcesManager.View.Detail
 {
     /// <summary>
-    /// Interaction logic for EmployeePage.xaml
+    /// Interaction logic for DepartmentDetailPage.xaml
     /// </summary>
-    public partial class EmployeeDetailPage : Page
+    public partial class DepartmentDetailPage : Page
     {
-        public EmployeeDetailViewModel employeeDetailVM = new EmployeeDetailViewModel(); 
-
-        public EmployeeDetailPage()
+        public DepartmentDetailPage()
         {
             InitializeComponent();
             DataContext = ApplicationState.Instance;
@@ -38,11 +31,5 @@ namespace HumanResourcesManager.View
         {
             NavigationService.GoBack();
         }
-
-        private void btnPDF_Click(object sender, RoutedEventArgs e)
-        {
-            employeeDetailVM.GeneratePDF();
-        }
     }
-   
 }

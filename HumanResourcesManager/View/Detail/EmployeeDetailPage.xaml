@@ -75,10 +75,10 @@
         <!-- Payroll List -->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedEmployee.Payrolls}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pay date" Binding="{Binding pay_date}" Width="*" />
-                <DataGridTextColumn Header="Gross Salary" Binding="{Binding gross_salary}" Width="*" />
-                <DataGridTextColumn Header="Deductions" Binding="{Binding deductions}" Width="*" />
-                <DataGridTextColumn Header="Net Salary" Binding="{Binding net_salary}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.payDay}}" Binding="{Binding pay_date}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.grossSalary}}" Binding="{Binding gross_salary}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.deductions}}" Binding="{Binding deductions}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.netSalary}}" Binding="{Binding net_salary}" Width="*" />
             </DataGrid.Columns>
         </DataGrid> 
 

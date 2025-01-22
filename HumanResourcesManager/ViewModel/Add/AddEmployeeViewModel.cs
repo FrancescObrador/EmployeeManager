@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HumanResourcesManager.ViewModel
+namespace HumanResourcesManager.ViewModel.Add
 {
     public class AddEmployeeViewModel
     {
@@ -53,6 +53,5 @@ namespace HumanResourcesManager.ViewModel
         {
             return _context.Departments.FirstOrDefault(d => d.id == id);
         }
-
     }
 }

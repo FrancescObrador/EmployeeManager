@@ -22,5 +22,7 @@ namespace HumanResourcesManager.Utilities
         public Department? SelectedDepartment { get; set; }
         public Project? SelectedProject { get; set; }
 
+        public string CompanyName => "Euryst SL";
+
     }
 }

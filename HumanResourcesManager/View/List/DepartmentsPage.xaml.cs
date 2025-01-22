@@ -1,5 +1,7 @@
 ﻿using HumanResourcesManager.Model;
-using HumanResourcesManager.ViewModel;
+using HumanResourcesManager.Utilities;
+using HumanResourcesManager.View.Detail;
+using HumanResourcesManager.ViewModel.List;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +59,17 @@ namespace HumanResourcesManager.View
         {
             //var addDepartmentWindow = new AddDepartmentWindow();
             // addDepartmentWindow.ShowDialog();
+        }
+
+        private void departmentsDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (departmentsDataGrid.SelectedItem is Department selectedDepartment)
+            {
+                ApplicationState.Instance.SelectedDepartment = selectedDepartment;
+                var detailPage = new DepartmentDetailPage();
+
+                NavigationService.Navigate(detailPage);
+            }
         }
     }
 }
