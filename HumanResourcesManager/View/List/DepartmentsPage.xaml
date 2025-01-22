@@ -64,7 +64,6 @@
                 <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="*" />
                 <DataGridTextColumn Binding="{Binding description}" Header="Description" Width="*" />
 
-                <!-- Añadir botón de eliminar si es necesario -->
                 <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

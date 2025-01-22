@@ -30,47 +30,70 @@
         </StackPanel>
 
         <!-- Employee Details -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
             <!-- Name -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeFirstName}}" />
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.first_name}" />
-            
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeLastName}}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.last_name}" />
+            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeName}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeFirstName}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.first_name}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeLastName}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.last_name}" />
+                </Grid>
+            </GroupBox>
 
             <!-- Position -->
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeePosition}}" />
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedEmployee.position}" />
+            <GroupBox Header="{Binding Source={x:Static p:Resources.employeePosition}}">
+                <TextBlock Text="{Binding SelectedEmployee.position}" />
+            </GroupBox>
 
             <!-- Contact Info -->
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeEmail}}" />
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedEmployee.email}" />
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" />
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedEmployee.phone_number}" />
+            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeContactInfo}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeEmail}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.email}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.phone_number}" />
+                </Grid>
+            </GroupBox>
 
             <!-- Employment Info -->
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeHireDate}}" />
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedEmployee.hire_date}" />
-            <TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeSalary}}" />
-            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedEmployee.salary}" />
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeDepartment}}" />
-            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding SelectedEmployee.department.name}" />
-        </Grid>
+            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeEmploymentInfo}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeHireDate}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.hire_date}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeSalary}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.salary}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeDepartment}}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedEmployee.department.name}" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
 
         <!-- Payroll List -->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedEmployee.Payrolls}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">

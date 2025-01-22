@@ -79,6 +79,24 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string data {
+            get {
+                return ResourceManager.GetString("data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dates.
+        /// </summary>
+        public static string dates {
+            get {
+                return ResourceManager.GetString("dates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The database has been initialized successfully..
         /// </summary>
         public static string dbInitialized {
@@ -133,6 +151,15 @@ namespace HumanResourcesManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact information.
+        /// </summary>
+        public static string employeeContactInfo {
+            get {
+                return ResourceManager.GetString("employeeContactInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         public static string employeeDepartment {
@@ -147,6 +174,15 @@ namespace HumanResourcesManager.Properties {
         public static string employeeEmail {
             get {
                 return ResourceManager.GetString("employeeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profesional Information.
+        /// </summary>
+        public static string employeeEmploymentInfo {
+            get {
+                return ResourceManager.GetString("employeeEmploymentInfo", resourceCulture);
             }
         }
         
@@ -174,6 +210,15 @@ namespace HumanResourcesManager.Properties {
         public static string employeeLastName {
             get {
                 return ResourceManager.GetString("employeeLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee name.
+        /// </summary>
+        public static string employeeName {
+            get {
+                return ResourceManager.GetString("employeeName", resourceCulture);
             }
         }
         
@@ -246,6 +291,15 @@ namespace HumanResourcesManager.Properties {
         public static string es_ES {
             get {
                 return ResourceManager.GetString("es-ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General information.
+        /// </summary>
+        public static string generalInfo {
+            get {
+                return ResourceManager.GetString("generalInfo", resourceCulture);
             }
         }
         

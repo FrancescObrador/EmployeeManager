@@ -26,25 +26,17 @@
         </Grid.ColumnDefinitions>
 
         <!-- Department Details -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
             <!-- Name -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.departmentsTitle}}" />
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedDepartment.name}" />
+            <GroupBox Header="{Binding Source={x:Static p:Resources.departmentsTitle}}">
+                <TextBlock Text="{Binding SelectedDepartment.name}" />
+            </GroupBox>
 
             <!-- Description -->
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectDescription}}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedDepartment.description}" />
-        </Grid>
+            <GroupBox Header="{Binding Source={x:Static p:Resources.projectDescription}}">
+                <TextBlock Text="{Binding SelectedDepartment.description}" />
+            </GroupBox>
+        </StackPanel>
 
         <!-- Employees List -->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedDepartment.Employees}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">

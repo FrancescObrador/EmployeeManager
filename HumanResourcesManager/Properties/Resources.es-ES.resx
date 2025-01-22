@@ -231,4 +231,22 @@
   <data name="deductions" xml:space="preserve">
     <value>Deducciones</value>
   </data>
+  <data name="employeeContactInfo" xml:space="preserve">
+    <value>Información de contacto</value>
+  </data>
+  <data name="employeeEmploymentInfo" xml:space="preserve">
+    <value>Información profesional</value>
+  </data>
+  <data name="employeeName" xml:space="preserve">
+    <value>Información de empleado</value>
+  </data>
+  <data name="generalInfo" xml:space="preserve">
+    <value>Información general</value>
+  </data>
+  <data name="dates" xml:space="preserve">
+    <value>Fechas</value>
+  </data>
+  <data name="data" xml:space="preserve">
+    <value>Datos</value>
+  </data>
 </root>

@@ -17,9 +17,9 @@
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.5*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
@@ -27,60 +27,75 @@
         </Grid.ColumnDefinitions>
 
         <!-- Project Details -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
+            <!-- General Info -->
+            <GroupBox Header="{Binding Source={x:Static p:Resources.generalInfo}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectName}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedProject.name}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectDescription}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedProject.description}" />
+                </Grid>
+            </GroupBox>
 
-            <!-- Name -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Project Name:" />
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedProject.name}" />
-            
-            <!-- Description -->
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedProject.description}" />
+            <!-- Dates -->
+            <GroupBox Header="{Binding Source={x:Static p:Resources.dates}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectStartDate}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedProject.start_date}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectEndDate}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedProject.end_date}" />
+                </Grid>
+            </GroupBox>
 
-            <!-- Start Date -->
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Start Date:" />
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedProject.start_date}" />
-
-            <!-- End Date -->
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="End Date:" />
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedProject.end_date}" />
-
-            <!-- Budget -->
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Budget:" />
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedProject.budget}" />
-
-            <!-- Status -->
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Status:" />
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SelectedProject.status}" />
-        </Grid>
+            <!-- Data -->
+            <GroupBox Header="{Binding Source={x:Static p:Resources.data}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectBudget}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedProject.budget}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.projectStatus}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedProject.status}" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
 
         <!-- Employee List -->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedProject.EmployeeProjects}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Employee Name" Binding="{Binding employee.FullName}" Width="*" />
-                <DataGridTextColumn Header="Role" Binding="{Binding role}" Width="*" />
-                <DataGridTextColumn Header="Start Date" Binding="{Binding start_date}" Width="*" />
-                <DataGridTextColumn Header="End Date" Binding="{Binding end_date}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.employeeName}}" Binding="{Binding employee.FullName}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.employeePosition}}" Binding="{Binding role}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.projectStartDate}}" Binding="{Binding start_date}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.projectEndDate}}" Binding="{Binding end_date}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnBack" Content="Return" Width="100" Click="btnBack_Click" />
+            <Button x:Name="btnBack" Content="{Binding Source={x:Static p:Resources.Return}}" Width="100" Click="btnBack_Click" />
         </StackPanel>
     </Grid>
 </Page>
