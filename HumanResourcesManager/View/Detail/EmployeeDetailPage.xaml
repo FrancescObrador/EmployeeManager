@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities"
+      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" 
+      xmlns:oxyplot="http://oxyplot.org/wpf"
       xmlns:p="clr-namespace:HumanResourcesManager.Properties"  
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="EmployeePage">
 
@@ -16,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
@@ -26,7 +27,13 @@
         <!-- Employee Photo -->
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Width="200" Height="200" 
-                   Source="{Binding SelectedEmployee.picture, Converter={StaticResource BitmapImageConverter}}" />
+                   Source="{Binding Employee.picture, Converter={StaticResource BitmapImageConverter}}" />
+            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
+                <StackPanel>
+                    <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
+                    <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="300" MinWidth="400" Margin="2" />
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <!-- Employee Details -->
@@ -43,15 +50,15 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeFirstName}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.first_name}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.first_name}" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeLastName}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.last_name}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.last_name}" />
                 </Grid>
             </GroupBox>
 
             <!-- Position -->
             <GroupBox Header="{Binding Source={x:Static p:Resources.employeePosition}}">
-                <TextBlock Text="{Binding SelectedEmployee.position}" />
+                <TextBlock Text="{Binding Employee.position}" />
             </GroupBox>
 
             <!-- Contact Info -->
@@ -66,9 +73,9 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeEmail}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.email}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.email}" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.phone_number}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.phone_number}" />
                 </Grid>
             </GroupBox>
 
@@ -86,17 +93,17 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeHireDate}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedEmployee.hire_date}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.hire_date}" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeSalary}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedEmployee.salary}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.salary}" />
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeDepartment}}" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedEmployee.department.name}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.department.name}" />
                 </Grid>
             </GroupBox>
         </StackPanel>
 
         <!-- Payroll List -->
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedEmployee.Payrolls}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">
+        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Employee.Payrolls}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.payDay}}" Binding="{Binding pay_date}" Width="*" />
                 <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.grossSalary}}" Binding="{Binding gross_salary}" Width="*" />

@@ -15,20 +15,19 @@ namespace HumanResourcesManager.Utilities
         {
             traceSource = new TraceSource(sourceName, SourceLevels.All);
 
-            traceSource.Switch = new SourceSwitch("defaultSwitch", "Verbose");
+            traceSource.Switch = new SourceSwitch("defaultSwitch");
 
-            traceSource.Listeners.Clear();          
+            traceSource.Listeners.Clear();
             // Logs for console
             traceSource.Listeners.Add(new ConsoleTraceListener());
             // Logs for file
             traceSource.Listeners.Add(new TextWriterTraceListener("logfile.log")
             {
                 TraceOutputOptions = TraceOptions.DateTime
-            }); 
+            });
             Trace.AutoFlush = true;
-            
+
             traceSource.TraceEvent(TraceEventType.Information, 0, "Logger Initialized");
-            
         }
 
 

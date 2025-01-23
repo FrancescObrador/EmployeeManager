@@ -3,6 +3,10 @@ using HumanResourcesManager.Model;
 using HumanResourcesManager.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Legends;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,24 +21,76 @@ namespace HumanResourcesManager.ViewModel.Detail
     {
         private Logger logger;
 
+        public PlotModel? PlotModel { get; private set; }
+
+        public Employee Employee { get; set; }
+
+
         public EmployeeDetailViewModel()
         {
             logger = new Logger("EmployeeDetailViewModel");
-
             logger.LogInfo("AddEmployeeViewModel created");
+
+            this.Employee = ApplicationState.Instance.SelectedEmployee;
+
+            GenerateChart();
+            
+        }
+
+        private void GenerateChart()
+        {
+            if (this.Employee?.Payrolls == null || !this.Employee.Payrolls.Any())
+            {
+                MessageBox.Show("No hay datos de nóminas disponibles para este empleado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var model = new PlotModel
+            {
+                Title = $"Gross Salary Evolution for {Employee.FullName}"
+            };
+
+            var barSeries = new BarSeries
+            {
+                Title = "Gross Salary",
+                StrokeColor = OxyColors.Black,
+                StrokeThickness = 1
+            };
+
+            var categoryAxis = new CategoryAxis { Position = AxisPosition.Left };
+
+            foreach (var payroll in Employee.Payrolls.OrderBy(p => p.pay_date))
+            {
+                barSeries.Items.Add(new BarItem { Value = (double)payroll.gross_salary });
+                categoryAxis.Labels.Add(payroll.pay_date.ToString("MMMM yyyy")); 
+            }
+
+            var valueAxis = new LinearAxis
+            {
+                Position = AxisPosition.Bottom,
+                MinimumPadding = 0,
+                MaximumPadding = 0.06,
+                AbsoluteMinimum = 0,
+                Title = "Gross Salary (€)"
+            };
+
+            model.Series.Add(barSeries);
+            model.Axes.Add(categoryAxis);
+            model.Axes.Add(valueAxis);
+
+            this.PlotModel = model;
         }
 
         public void GeneratePDF()
         {
-            var empleado = ApplicationState.Instance.SelectedEmployee;
-            var payroll = empleado.Payrolls.LastOrDefault();
+            var payroll = this.Employee.Payrolls.LastOrDefault();
 
             var primer = new PayrollItem() { Amount = payroll.gross_salary / 12, Concept = "Salario base", IsDeduction = false };
             var segundo = new PayrollItem() { Amount = payroll.deductions / 12, Concept = "Contingencias comunes", IsDeduction = true };
 
-            var payrollPDFData = new ExportPDF.Payroll(empleado.id, DateTime.Now, ApplicationState.Instance.CompanyName,
-                empleado.FullName, empleado.position,
-                "12345678A", new List<PayrollItem>() { primer, segundo }, empleado.phone_number);
+            var payrollPDFData = new ExportPDF.Payroll(this.Employee.id, DateTime.Now, ApplicationState.Instance.CompanyName,
+                this.Employee.FullName, this.Employee.position,
+                "12345678A", new List<PayrollItem>() { primer, segundo }, this.Employee.phone_number);
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Archivo PDF|*.pdf";

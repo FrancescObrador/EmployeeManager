@@ -1,7 +1,4 @@
-﻿---------- Database for WPF final project ----------
----------- Drop tables if they exist ----------
-
-USE HumanResourcesManager;
+﻿USE HumanResourcesManager;
 
 -- Eliminar tablas si existen
 IF OBJECT_ID('employee_project', 'U') IS NOT NULL DROP TABLE [employee_project];
@@ -77,18 +74,9 @@ CREATE INDEX [payroll_index_3] ON [payroll] (employee_id);
 
 -- Crear claves foráneas con CASCADE en DELETE
 ALTER TABLE [employee] ADD FOREIGN KEY ([department_id]) REFERENCES [department] ([id]);
-
-ALTER TABLE [employee_project] 
-    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
-
-ALTER TABLE [employee_project] 
-    ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id]);
-
-ALTER TABLE [time_off_request] 
-    ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
-
-
----------- Populate ----------
+ALTER TABLE [employee_project] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
+ALTER TABLE [employee_project] ADD FOREIGN KEY ([project_id]) REFERENCES [project] ([id]);
+ALTER TABLE [time_off_request] ADD FOREIGN KEY ([employee_id]) REFERENCES [employee] ([id]) ON DELETE CASCADE;
 
 -- Generar 10 departamentos ficticios
 INSERT INTO department (name, description)
@@ -134,7 +122,7 @@ DECLARE @i INT = 1;
 WHILE @i <= 50
 BEGIN
     DECLARE @FirstName VARCHAR(255);
-    IF RAND() < 0.5 -- Probabilidad del 50%
+    IF RAND() < 0.5
         SET @FirstName = (SELECT TOP 1 name FROM @MaleFirstNames ORDER BY NEWID());
     ELSE
         SET @FirstName = (SELECT TOP 1 name FROM @FemaleFirstNames ORDER BY NEWID());
@@ -147,7 +135,7 @@ BEGIN
     DECLARE @DepartmentId INT = FLOOR(RAND() * 10) + 1;
     DECLARE @Position VARCHAR(100) = (SELECT TOP 1 position FROM @Positions ORDER BY NEWID());
     DECLARE @DateOfBirth DATE = DATEADD(YEAR, -FLOOR(RAND() * 25) - 20, GETDATE());
-    DECLARE @Picture VARBINARY(MAX) = NULL; -- Imagen vacía por simplicidad
+    DECLARE @Picture VARBINARY(MAX) = NULL;
 
     INSERT INTO employee (first_name, last_name, email, phone_number, hire_date, salary, department_id, position, date_of_birth, picture)
     VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @HireDate, @Salary, @DepartmentId, @Position, @DateOfBirth, @Picture);
@@ -169,18 +157,13 @@ SET @i = 1;
 
 WHILE @i <= @EmployeeCount
 BEGIN
-    -- Obtener el ID y la posición del empleado actual
     DECLARE @EmployeeId INT = (SELECT id FROM employee ORDER BY id OFFSET @i - 1 ROWS FETCH NEXT 1 ROWS ONLY);
     DECLARE @PositionRol VARCHAR(100) = (SELECT position FROM employee WHERE id = @EmployeeId);
-
-    -- Asignar cada empleado a un proyecto aleatorio
     DECLARE @ProjectId INT = (SELECT id FROM project ORDER BY NEWID() OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY);
 
-    -- Insertar asignación con el rol basado en la posición del empleado
     INSERT INTO employee_project (employee_id, project_id, role, start_date, end_date)
     VALUES (@EmployeeId, @ProjectId, @PositionRol, GETDATE(), NULL);
 
-    -- Asignar a un segundo proyecto para algunos empleados (probabilidad del 50%)
     IF RAND() < 0.5
     BEGIN
         DECLARE @SecondProjectId INT = (SELECT TOP 1 id FROM project WHERE id != @ProjectId ORDER BY NEWID());
@@ -194,36 +177,34 @@ BEGIN
     SET @i = @i + 1;
 END;
 
-
--- Declare variables for the last three months
+-- Generar nóminas
 DECLARE @CurrentMonth DATE = GETDATE();
-DECLARE @LastMonth DATE = DATEADD(MONTH, -1, @CurrentMonth);
-DECLARE @TwoMonthsAgo DATE = DATEADD(MONTH, -2, @CurrentMonth);
+DECLARE @IncreaseRate DECIMAL(5,4) = 1.025;
 
--- Insert payroll records for all employees
+DELETE FROM payroll;
+
+WITH PayrollCTE AS (
+    SELECT 
+        id as employee_id,
+        CAST(salary AS DECIMAL(10,2)) as initial_salary,
+        0 as month_offset
+    FROM employee
+    
+    UNION ALL
+    
+    SELECT 
+        employee_id,
+        CAST(initial_salary * POWER(@IncreaseRate, month_offset) AS DECIMAL(10,2)) as initial_salary,
+        month_offset + 1
+    FROM PayrollCTE
+    WHERE month_offset < 11
+)
 INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
 SELECT 
-    id as employee_id,
-    @CurrentMonth as pay_date,
-    salary as gross_salary,
-    ROUND(salary * 0.25, 2) as deductions,
-    ROUND(salary * 0.75, 2) as net_salary
-FROM employee;
-
-INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
-SELECT 
-    id as employee_id,
-    @LastMonth as pay_date,
-    salary as gross_salary,
-    ROUND(salary * 0.25, 2) as deductions,
-    ROUND(salary * 0.75, 2) as net_salary
-FROM employee;
-
-INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
-SELECT 
-    id as employee_id,
-    @TwoMonthsAgo as pay_date,
-    salary as gross_salary,
-    ROUND(salary * 0.25, 2) as deductions,
-    ROUND(salary * 0.75, 2) as net_salary
-FROM employee;
+    employee_id,
+    DATEADD(MONTH, -month_offset, @CurrentMonth) as pay_date,
+    ROUND(initial_salary, 2) as gross_salary,
+    ROUND(initial_salary * 0.25, 2) as deductions,
+    ROUND(initial_salary * 0.75, 2) as net_salary
+FROM PayrollCTE
+ORDER BY employee_id, pay_date;

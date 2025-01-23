@@ -31,7 +31,8 @@ namespace HumanResourcesManager.View
         public EmployeeDetailPage()
         {
             InitializeComponent();
-            DataContext = ApplicationState.Instance;
+            //DataContext = ApplicationState.Instance;
+            this.DataContext = employeeDetailVM;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
