@@ -131,7 +131,7 @@ BEGIN
     DECLARE @Email VARCHAR(255) = LOWER(@FirstName + '.' + @LastName + CAST(@i AS VARCHAR(10)) + '@example.com');
     DECLARE @PhoneNumber VARCHAR(50) = '555-' + CAST(FLOOR(RAND() * 10000) AS VARCHAR(4)) + '-' + CAST(FLOOR(RAND() * 10000) AS VARCHAR(4));
     DECLARE @HireDate DATE = DATEADD(DAY, -FLOOR(RAND() * 1000), GETDATE());
-    DECLARE @Salary DECIMAL(10, 2) = ROUND(30000 + RAND() * 70000, 2);
+    DECLARE @Salary DECIMAL(10, 2) = ROUND(1200 + RAND() * 800, 2);
     DECLARE @DepartmentId INT = FLOOR(RAND() * 10) + 1;
     DECLARE @Position VARCHAR(100) = (SELECT TOP 1 position FROM @Positions ORDER BY NEWID());
     DECLARE @DateOfBirth DATE = DATEADD(YEAR, -FLOOR(RAND() * 25) - 20, GETDATE());
@@ -177,9 +177,9 @@ BEGIN
     SET @i = @i + 1;
 END;
 
--- Generar nóminas
+-- Generar 12 nóminas con aumento solo en meses 3, 6, 9 y 12
 DECLARE @CurrentMonth DATE = GETDATE();
-DECLARE @IncreaseRate DECIMAL(5,4) = 1.025;
+DECLARE @IncreaseRate DECIMAL(5,4) = 1.015;  -- 1.5% quarterly increase
 
 DELETE FROM payroll;
 
@@ -194,15 +194,21 @@ WITH PayrollCTE AS (
     
     SELECT 
         employee_id,
-        CAST(initial_salary * POWER(@IncreaseRate, month_offset) AS DECIMAL(10,2)) as initial_salary,
+        CAST(
+            CASE 
+                WHEN month_offset IN (3, 6, 9, 12) 
+                THEN initial_salary * POWER(@IncreaseRate, month_offset / 3)
+                ELSE initial_salary
+            END
+        AS DECIMAL(10,2)) as salary_with_potential_increase,
         month_offset + 1
     FROM PayrollCTE
-    WHERE month_offset < 11
+    WHERE month_offset < 12
 )
 INSERT INTO payroll (employee_id, pay_date, gross_salary, deductions, net_salary)
 SELECT 
     employee_id,
-    DATEADD(MONTH, -month_offset, @CurrentMonth) as pay_date,
+    DATEADD(MONTH, -12 + month_offset, @CurrentMonth) as pay_date,
     ROUND(initial_salary, 2) as gross_salary,
     ROUND(initial_salary * 0.25, 2) as deductions,
     ROUND(initial_salary * 0.75, 2) as net_salary

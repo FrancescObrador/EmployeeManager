@@ -85,8 +85,8 @@ namespace HumanResourcesManager.ViewModel.Detail
         {
             var payroll = this.Employee.Payrolls.LastOrDefault();
 
-            var primer = new PayrollItem() { Amount = payroll.gross_salary / 12, Concept = "Salario base", IsDeduction = false };
-            var segundo = new PayrollItem() { Amount = payroll.deductions / 12, Concept = "Contingencias comunes", IsDeduction = true };
+            var primer = new PayrollItem() { Amount = payroll.gross_salary, Concept = "Salario base", IsDeduction = false };
+            var segundo = new PayrollItem() { Amount = payroll.deductions, Concept = "Contingencias comunes", IsDeduction = true };
 
             var payrollPDFData = new ExportPDF.Payroll(this.Employee.id, DateTime.Now, ApplicationState.Instance.CompanyName,
                 this.Employee.FullName, this.Employee.position,
