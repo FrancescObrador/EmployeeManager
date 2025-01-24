@@ -30,7 +30,6 @@
                    Source="{Binding Employee.picture, Converter={StaticResource BitmapImageConverter}}" />
             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
                 <StackPanel>
-                    <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
                     <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="300" MinWidth="400" Margin="2" />
                 </StackPanel>
             </Border>

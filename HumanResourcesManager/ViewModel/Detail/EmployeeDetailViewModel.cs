@@ -45,10 +45,7 @@ namespace HumanResourcesManager.ViewModel.Detail
                 return;
             }
 
-            var model = new PlotModel
-            {
-                Title = $"Gross Salary Evolution for {Employee.FullName}"
-            };
+            var model = new PlotModel();
 
             var barSeries = new BarSeries
             {
