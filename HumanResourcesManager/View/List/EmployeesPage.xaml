@@ -1,87 +1,161 @@
-﻿<Page x:Class="HumanResourcesManager.View.EmployeesPage" 
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+﻿<Page x:Class="HumanResourcesManager.View.EmployeesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HumanResourcesManager.View" 
-      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" 
-      xmlns:p="clr-namespace:HumanResourcesManager.Properties" 
-      xmlns:oxyplot="http://oxyplot.org/wpf" mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="EmployeesPage">
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:HumanResourcesManager.View"
+      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities"
+      xmlns:p="clr-namespace:HumanResourcesManager.Properties"
+      xmlns:oxyplot="http://oxyplot.org/wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EmployeesPage">
+
     <Page.Resources>
         <utilities:BitmapImageConverter x:Key="BitmapImageConverter" />
         <utilities:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <CollectionViewSource x:Key="employeeViewSource" />
     </Page.Resources>
-    <Grid>
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="400" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+        <!-- Header Section -->
+        <Border Grid.Row="0" 
+                BorderBrush="{StaticResource PrimaryBrush}" 
+                BorderThickness="0 0 0 2"
+                Margin="0 0 0 10"
+                Padding="0 0 0 5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <!-- Encabezado con WrapPanel -->
-        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
-                    <StackPanel>
-                        <Label Content="Total"></Label>
-                        <TextBlock Text="{Binding Total}"></TextBlock>
-                    </StackPanel>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
-                    <StackPanel>
-                        <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
-                        <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4" />
-                    </StackPanel>
-                </Border>
-            </WrapPanel>
-        </DockPanel>
+                <!-- Stats Container -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Border Background="{StaticResource LightBrush}" 
+                            CornerRadius="5" 
+                            Padding="15"
+                            Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="Total Employees" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource PrimaryBrush}"
+                                       Margin="0 0 0 5"/>
+                            <TextBlock Text="{Binding Total}" 
+                                       FontSize="18"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource TextBrush}"/>
+                        </StackPanel>
+                    </Border>
 
-        <!-- Titulo de empleados, CheckBox y Botón en la misma fila -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0">
-            <Label Content="Empleados:" VerticalAlignment="Center" />
-        </StackPanel>
+                    <Border Background="{StaticResource LightBrush}" 
+                            CornerRadius="5" 
+                            Padding="15"
+                            Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Source={x:Static p:Resources.employeePerDepartment}}" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource PrimaryBrush}"
+                                       Margin="0 0 0 5"/>
+                            <oxyplot:PlotView Model="{Binding PlotModel}" 
+                                              Height="200" 
+                                              Width="400"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
+                <!-- Action Buttons -->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            Margin="10 0">
+                    <Button Name="btnAddEmployee" 
+                            Content="Add Employee" 
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Click="btnAddEmployee_Click" 
+                            Margin="5 0"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
-            <Button Name="btnAddEmployee" Content="Add Employee" Width="150" Margin="7,0" Click="btnAddEmployee_Click"   />
-            <!-- CheckBox para alternar Modo Edición -->
-            <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
-            <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" 
-                    Click="btnSaveChanges_Click" VerticalAlignment="Center" />
-        </StackPanel>
+                    <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" 
+                              IsChecked="{Binding IsReadOnly}" 
+                              VerticalAlignment="Center"
+                              Margin="10 0"
+                              Foreground="{StaticResource TextBrush}"/>
 
-        <!-- Lista de datos -->
-        <DataGrid x:Name="employeesDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource employeeViewSource}}" 
-                  Margin="10" AutoGenerateColumns="False" MouseRightButtonDown="employeesDataGrid_MouseRightButtonDown" IsReadOnly="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}" RowHeight="100">
+                    <Button Name="btnSaveChanges" 
+                            Content="{Binding Source={x:Static p:Resources.saveChanges}}" 
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="btnSaveChanges_Click" 
+                            Margin="5 0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="2" 
+                  x:Name="employeesDataGrid" 
+                  ItemsSource="{Binding Source={StaticResource employeeViewSource}}"
+                  Style="{StaticResource ModernDataGridStyle}"
+                  MouseRightButtonDown="employeesDataGrid_MouseRightButtonDown"
+                  IsReadOnly="{Binding IsReadOnly, Converter={StaticResource InverseBooleanConverter}}">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Foto" Width="120">
+                <DataGridTemplateColumn Header="Photo" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Width="100" Height="100" Source="{Binding picture, Converter={StaticResource BitmapImageConverter}}" />
+                            <Viewbox Stretch="Uniform">
+                                <Image Width="100" 
+                                       Height="100" 
+                                       Source="{Binding picture, Converter={StaticResource BitmapImageConverter}}"
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                    <Image.Clip>
+                                        <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                                    </Image.Clip>
+                                </Image>
+                            </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Binding="{Binding first_name}" Header="{Binding Source={x:Static p:Resources.employeeFirstName}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding last_name}" Header="{Binding Source={x:Static p:Resources.employeeLastName}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding position}" Header="{Binding Source={x:Static p:Resources.employeePosition}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding email}" Header="{Binding Source={x:Static p:Resources.employeeEmail}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding phone_number}" Header="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding hire_date}" Header="{Binding Source={x:Static p:Resources.employeeHireDate}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding salary}" Header="{Binding Source={x:Static p:Resources.employeeSalary}}" Width="*" />
-                <DataGridTextColumn Binding="{Binding department.name}" Header="{Binding Source={x:Static p:Resources.employeeDepartment}}" Width="*" />
+                <DataGridTextColumn Binding="{Binding first_name}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeFirstName}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding last_name}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeLastName}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding position}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeePosition}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding email}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeEmail}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding phone_number}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding hire_date}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeHireDate}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding salary}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeSalary}}" 
+                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding department.name}" 
+                                    Header="{Binding Source={x:Static p:Resources.employeeDepartment}}" 
+                                    Width="*"/>
 
-                <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" Width="Auto">
+                <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" 
+                                       Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="btnDeleteEmployee" Content="{Binding Source={x:Static p:Resources.delete}}" Width="75" Click="btnDeleteEmployee_Click" >
-                            </Button>
+                            <Button Name="btnDeleteEmployee" 
+                                    Content="{Binding Source={x:Static p:Resources.delete}}" 
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    Click="btnDeleteEmployee_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

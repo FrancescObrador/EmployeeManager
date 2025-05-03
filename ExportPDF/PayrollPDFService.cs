@@ -51,11 +51,10 @@ namespace ExportPDF
                 Section section = doc.AddSection();
 
                 // Configuración de página
-                section.PageSetup = doc.DefaultPageSetup.Clone();
-                section.PageSetup.TopMargin = Unit.FromCentimeter(2);
-                section.PageSetup.LeftMargin = Unit.FromCentimeter(2);
-                section.PageSetup.RightMargin = Unit.FromCentimeter(2);
-                section.PageSetup.BottomMargin = Unit.FromCentimeter(2);
+                section.PageSetup.TopMargin = Unit.FromCentimeter(1.5);
+                section.PageSetup.LeftMargin = Unit.FromCentimeter(1.5);
+                section.PageSetup.RightMargin = Unit.FromCentimeter(1.5);
+                section.PageSetup.BottomMargin = Unit.FromCentimeter(1.5);
 
                 // Cabecera
                 AddHeaderTable(section, payroll);
@@ -72,7 +71,6 @@ namespace ExportPDF
                 // Pie de página
                 AddFooterTable(section, payroll);
 
-                // Renderización del PDF
                 PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer
                 {
                     Document = doc
@@ -91,19 +89,23 @@ namespace ExportPDF
         private void AddHeaderTable(Section section, Payroll payroll)
         {
             Table headerTable = section.AddTable();
-            headerTable.Borders.Width = 0.75;
-
-            // Configurar columnas
             headerTable.AddColumn("16cm");
 
-            // Primera fila
+            // Nombre de la empresa
             Row row = headerTable.AddRow();
-            row.Shading.Color = Colors.LightGray;
-            row.Cells[0].AddParagraph("EMPRESA").Format.Font.Bold = true;
+            var companyCell = row.Cells[0];
+            companyCell.AddParagraph(payroll.Company.ToUpper());
+            companyCell.Format.Font.Bold = true;
+            companyCell.Format.Font.Size = 12;
+            companyCell.Format.Alignment = ParagraphAlignment.Center;
 
-            // Segunda fila
+            // Tipo de documento
             row = headerTable.AddRow();
-            row.Cells[0].AddParagraph(payroll.Company);
+            var docTypeCell = row.Cells[0];
+            docTypeCell.AddParagraph("RECIBO DE NÓMINA");
+            docTypeCell.Format.Font.Size = 11;
+            docTypeCell.Format.Alignment = ParagraphAlignment.Center;
+            docTypeCell.Format.SpaceAfter = Unit.FromCentimeter(0.5);
 
             SetTableStyle(headerTable);
         }
@@ -111,136 +113,136 @@ namespace ExportPDF
         private void AddEmployeeTable(Section section, Payroll payroll)
         {
             Table employeeTable = section.AddTable();
-            employeeTable.Borders.Width = 0.75;
+            employeeTable.AddColumn("8cm");
+            employeeTable.AddColumn("8cm");
 
-            employeeTable.AddColumn("6cm");
-            employeeTable.AddColumn("3cm");
-            employeeTable.AddColumn("3cm");
-            employeeTable.AddColumn("4cm");
-
+            // Fila 1 - Datos principales
             Row row = employeeTable.AddRow();
-            row.Shading.Color = Colors.LightGray;
-            row.Cells[0].AddParagraph("TRABAJADOR/A").Format.Font.Bold = true;
-            row.Cells[1].AddParagraph("CATEGORÍA").Format.Font.Bold = true;
-            row.Cells[2].AddParagraph("D.N.I.").Format.Font.Bold = true;
-            row.Cells[3].AddParagraph("TELÉFONO").Format.Font.Bold = true;
+            row.Cells[0].AddParagraph($"TRABAJADOR/A: {payroll.EmployeeName}");
+            row.Cells[1].AddParagraph($"CATEGORÍA: {payroll.Category}");
 
+            // Fila 2 - Datos secundarios
             row = employeeTable.AddRow();
-            row.Cells[0].AddParagraph(payroll.EmployeeName);
-            row.Cells[1].AddParagraph(payroll.Category);
-            row.Cells[2].AddParagraph(payroll.DNI);
-            row.Cells[3].AddParagraph(payroll.PhoneNumber);
+            row.Cells[0].AddParagraph($"DNI/NIE: {payroll.DNI}");
+            row.Cells[1].AddParagraph($"TELÉFONO: {payroll.PhoneNumber}");
 
-            SetTableStyle(employeeTable);
+            // Estilos
+            foreach (Row tableRow in employeeTable.Rows)
+            {
+                foreach (Cell cell in tableRow.Cells)
+                {
+                    cell.Format.Font.Size = 10;
+                    cell.VerticalAlignment = MigraDoc.DocumentObjectModel.Tables.VerticalAlignment.Center;
+                }
+            }
+
+            employeeTable.Borders.Width = 0.25;
+            employeeTable.Format.SpaceAfter = Unit.FromCentimeter(0.5);
         }
 
         private void AddPayrollItemsTable(Section section, Payroll payroll)
         {
             Table itemsTable = section.AddTable();
-            itemsTable.Borders.Width = 0.75;
-            itemsTable.Rows.LeftIndent = 0;
-
-            itemsTable.AddColumn("2cm"); // Cuantía
-            itemsTable.AddColumn("2cm"); // Precio
-            itemsTable.AddColumn("6cm"); // Concepto
-            itemsTable.AddColumn("3cm"); // Devengos
-            itemsTable.AddColumn("3cm"); // Deducciones
+            itemsTable.AddColumn("10cm"); // Concepto
+            itemsTable.AddColumn("3cm");   // Devengos
+            itemsTable.AddColumn("3cm");  // Deducciones
 
             // Cabecera
             Row headerRow = itemsTable.AddRow();
             headerRow.Shading.Color = Colors.LightGray;
-            headerRow.Cells[0].AddParagraph("CUANTÍA").Format.Font.Bold = true;
-            headerRow.Cells[1].AddParagraph("PRECIO").Format.Font.Bold = true;
-            headerRow.Cells[2].AddParagraph("CONCEPTO").Format.Font.Bold = true;
-            headerRow.Cells[3].AddParagraph("DEVENGOS").Format.Font.Bold = true;
-            headerRow.Cells[4].AddParagraph("DEDUCCIONES").Format.Font.Bold = true;
+
+            // Configuración de celdas
+            var conceptCell = headerRow.Cells[0];
+            var devengosCell = headerRow.Cells[1];
+            var deduccionesCell = headerRow.Cells[2];
+
+            // Concepto
+            var conceptParagraph = conceptCell.AddParagraph("CONCEPTO");
+            conceptParagraph.Format.Font.Bold = true;
+
+            // Devengos
+            var devengosParagraph = devengosCell.AddParagraph("DEVENGOS");
+            devengosParagraph.Format.Font.Bold = true;
+            devengosParagraph.Format.Alignment = ParagraphAlignment.Right;
+
+            // Deducciones
+            var deduccionesParagraph = deduccionesCell.AddParagraph("DEDUCCIONES");
+            deduccionesParagraph.Format.Font.Bold = true;
+            deduccionesParagraph.Format.Alignment = ParagraphAlignment.Right;
 
             // Conceptos
             foreach (var item in payroll.PayrollItems)
             {
                 Row row = itemsTable.AddRow();
-                row.Cells[2].AddParagraph(item.Concept);
-                if (item.IsDeduction)
-                    row.Cells[4].AddParagraph(item.Amount.ToString("N2"));
+                row.Cells[0].AddParagraph(item.Concept);
+
+                if (!item.IsDeduction)
+                {
+                    var amountParagraph = row.Cells[1].AddParagraph(item.Amount.ToString("N2"));
+                    amountParagraph.Format.Alignment = ParagraphAlignment.Right;
+                }
                 else
-                    row.Cells[3].AddParagraph(item.Amount.ToString("N2"));
+                {
+                    var amountParagraph = row.Cells[2].AddParagraph(item.Amount.ToString("N2"));
+                    amountParagraph.Format.Alignment = ParagraphAlignment.Right;
+                }
             }
 
-            // Agregar filas en blanco
-            for (int i = 0; i < 2; i++)
-            {
-                Row row = itemsTable.AddRow();
-                row.Borders.Left.Width = 0.75;
-                row.Borders.Right.Width = 0.75;
-                row.Borders.Top.Width = 0;
-                row.Borders.Bottom.Width = 0;
-            }
+            // Totales parciales
+            AddTotalRow(itemsTable, "TOTAL DEVENGOS:", payroll.GrossSalary, 1);
+            AddTotalRow(itemsTable, "TOTAL DEDUCCIONES:", payroll.Deductions, 2);
 
-            SetTableStyle(itemsTable, false);
+            itemsTable.Borders.Width = 0.25;
+            itemsTable.Format.SpaceAfter = Unit.FromCentimeter(0.5);
+        }
+
+        private void AddTotalRow(Table table, string label, decimal amount, int columnIndex)
+        {
+            Row row = table.AddRow();
+            row.Cells[0].AddParagraph(label).Format.Font.Bold = true;
+            var amountParagraph = row.Cells[columnIndex].AddParagraph(amount.ToString("N2"));
+            amountParagraph.Format.Font.Bold = true;
+            amountParagraph.Format.Alignment = ParagraphAlignment.Right;
         }
 
         private void AddTotalsTable(Section section, Payroll payroll)
         {
             Table totalsTable = section.AddTable();
-            totalsTable.Borders.Width = 0.75;
-
-            totalsTable.AddColumn("4cm");
-            totalsTable.AddColumn("4cm");
-            totalsTable.AddColumn("4cm");
-            totalsTable.AddColumn("4cm");
+            totalsTable.AddColumn("13cm");
+            totalsTable.AddColumn("3cm");
 
             Row row = totalsTable.AddRow();
-            row.Shading.Color = Colors.LightGray;
-            row.Cells[0].AddParagraph("REM. TOTAL").Format.Font.Bold = true;
-            row.Cells[1].AddParagraph("BASE S.S.").Format.Font.Bold = true;
-            row.Cells[2].AddParagraph("BASE I.R.P.F.").Format.Font.Bold = true;
-            row.Cells[3].AddParagraph("T. A DEDUCIR").Format.Font.Bold = true;
+            row.Cells[0].AddParagraph("LÍQUIDO A PERCIBIR").Format.Font.Bold = true;
+            var netSalaryParagraph = row.Cells[1].AddParagraph(payroll.NetSalary.ToString("N2"));
+            netSalaryParagraph.Format.Font.Bold = true;
+            netSalaryParagraph.Format.Alignment = ParagraphAlignment.Right;
 
-            row = totalsTable.AddRow();
-            row.Cells[0].AddParagraph(payroll.GrossSalary.ToString("N2"));
-            row.Cells[1].AddParagraph(payroll.GrossSalary.ToString("N2"));
-            row.Cells[2].AddParagraph(payroll.GrossSalary.ToString("N2"));
-            row.Cells[3].AddParagraph(payroll.Deductions.ToString("N2"));
-
-            SetTableStyle(totalsTable);
+            totalsTable.Borders.Top.Width = 0.75;
+            totalsTable.Borders.Bottom.Width = 0.75;
+            totalsTable.Format.Font.Size = 11;
         }
 
         private void AddFooterTable(Section section, Payroll payroll)
         {
             Table footerTable = section.AddTable();
-            footerTable.Borders.Width = 0.75;
-
             footerTable.AddColumn("16cm");
 
             Row row = footerTable.AddRow();
-            row.Shading.Color = Colors.LightGray;
-            row.Cells[0].AddParagraph($"FECHA: {payroll.PayDate:dd MMMM yyyy}");
+            var footerCell = row.Cells[0];
+            footerCell.AddParagraph($"Fecha de generación: {payroll.PayDate:dd/MM/yyyy}");
+            footerCell.Format.Font.Size = 9;
+            footerCell.Format.Alignment = ParagraphAlignment.Center;
 
-            row = footerTable.AddRow();
-            row.Cells[0].AddParagraph($"LÍQUIDO A PERCIBIR: {payroll.NetSalary:N2}").Format.Font.Bold = true;
-
-            SetTableStyle(footerTable);
+            footerTable.Borders.Width = 0.25;
+            footerTable.Format.SpaceBefore = Unit.FromCentimeter(1);
         }
 
-        private void SetTableStyle(Table table, bool includeInnerBorders = true)
+        private void SetTableStyle(Table table)
         {
-            table.Format.Font.Size = 10;
             table.Format.Font.Name = "Arial";
             table.Format.Alignment = ParagraphAlignment.Left;
             table.Rows.LeftIndent = 0;
-
-            foreach (Row row in table.Rows)
-            {
-                foreach (Cell cell in row.Cells)
-                {
-                    cell.Borders.Width = 0.75;
-                    if (!includeInnerBorders)
-                    {
-                        cell.Borders.Top.Width = 0;
-                        cell.Borders.Bottom.Width = 0;
-                    }
-                }
-            }
         }
     }
+
 }

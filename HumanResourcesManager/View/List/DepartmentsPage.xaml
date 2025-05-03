@@ -1,78 +1,92 @@
-﻿<Page x:Class="HumanResourcesManager.View.DepartmentsPage" 
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+﻿<Page x:Class="HumanResourcesManager.View.DepartmentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:HumanResourcesManager.View" 
-      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" 
-      xmlns:p="clr-namespace:HumanResourcesManager.Properties" 
-      xmlns:oxyplot="http://oxyplot.org/wpf" mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" 
+      xmlns:local="clr-namespace:HumanResourcesManager.View"
+      xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities"
+      xmlns:p="clr-namespace:HumanResourcesManager.Properties"
+      xmlns:oxyplot="http://oxyplot.org/wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="DepartmentsPage">
 
     <Page.Resources>
-        <utilities:BitmapImageConverter x:Key="BitmapImageConverter" />
         <CollectionViewSource x:Key="departmentsViewSource" />
     </Page.Resources>
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="400" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <!-- Encabezado con WrapPanel -->
-        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" MinWidth="200" Margin="8">
+        <!-- Header Section -->
+        <Border Grid.Row="0" 
+                BorderBrush="{StaticResource PrimaryBrush}" 
+                BorderThickness="0 0 0 2"
+                Margin="0 0 0 10"
+                Padding="0 0 0 5">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="{StaticResource LightBrush}" 
+                        CornerRadius="5" 
+                        Padding="15"
+                        Margin="5">
                     <StackPanel>
-                        <Label Content="Total Departments:"></Label>
-                        <TextBlock Text="{Binding Total}"></TextBlock>
+                        <TextBlock Text="Total Departments" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   Margin="0 0 0 5"/>
+                        <TextBlock Text="{Binding Total}" 
+                                   FontSize="18"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource TextBrush}"/>
                     </StackPanel>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
+
+                <Border Background="{StaticResource LightBrush}" 
+                        CornerRadius="5" 
+                        Padding="15"
+                        Margin="5">
                     <StackPanel>
-                        <Label Content="{Binding Source={x:Static p:Resources.employeePerDepartment}}"></Label>
-                        <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="350" MinWidth="400" Margin="4" />
+                        <TextBlock Text="{Binding Source={x:Static p:Resources.employeePerDepartment}}" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   Margin="0 0 0 5"/>
+                        <oxyplot:PlotView Model="{Binding PlotModel}" 
+                                          Height="200" 
+                                          Width="400"/>
                     </StackPanel>
                 </Border>
-            </WrapPanel>
-        </DockPanel>
+            </StackPanel>
+        </Border>
 
-        <!-- Titulo de departamentos, Botón para agregar y CheckBox para modo edición -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,0">
-            <Label Content="Departments:" VerticalAlignment="Center" />
-        </StackPanel>
-
-        <!--<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="7,0">
-            <Button Name="btnAddDepartment" Content="Add Department" Width="150" Margin="7,0" Click="btnAddDepartment_Click" />
-            --><!-- No hay modo de edición, pero podemos agregar una opción si es necesario --><!--
-            <CheckBox Content="{Binding Source={x:Static p:Resources.editionMode}}" IsChecked="{Binding IsReadOnly}" VerticalAlignment="Center" />
-            <Button Name="btnSaveChanges" Content="{Binding Source={x:Static p:Resources.saveChanges}}" Width="150" Margin="7,0" IsEnabled="{Binding Path=IsReadOnly}" Click="btnSaveChanges_Click"  VerticalAlignment="Center" />
-        </StackPanel>-->
-
-        <!-- Lista de departamentos -->
-        <DataGrid x:Name="departmentsDataGrid" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource departmentsViewSource}}" 
-                  MouseRightButtonDown="departmentsDataGrid_MouseRightButtonDown" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="100">
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="1" 
+                  x:Name="departmentsDataGrid" 
+                  ItemsSource="{Binding Source={StaticResource departmentsViewSource}}"
+                  Style="{StaticResource ModernDataGridStyle}"
+                  MouseRightButtonDown="departmentsDataGrid_MouseRightButtonDown">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="*" />
-                <DataGridTextColumn Binding="{Binding description}" Header="Description" Width="*" />
+                <DataGridTextColumn Binding="{Binding name}" 
+                                     Header="Name" 
+                                     Width="*"/>
+                <DataGridTextColumn Binding="{Binding description}" 
+                                     Header="Description" 
+                                     Width="*"/>
 
-                <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" Width="Auto">
+                <DataGridTemplateColumn Header="{Binding Source={x:Static p:Resources.delete}}" 
+                                       Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="btnDeleteDepartment" Content="{Binding Source={x:Static p:Resources.delete}}" Width="75" Click="btnDeleteDepartment_Click" />
+                            <Button Name="btnDeleteDepartment" 
+                                    Content="{Binding Source={x:Static p:Resources.delete}}" 
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    Click="btnDeleteDepartment_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-
 </Page>

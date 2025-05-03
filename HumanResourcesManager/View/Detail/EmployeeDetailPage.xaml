@@ -6,116 +6,200 @@
       xmlns:utilities="clr-namespace:HumanResourcesManager.Utilities" 
       xmlns:oxyplot="http://oxyplot.org/wpf"
       xmlns:p="clr-namespace:HumanResourcesManager.Properties"  
-      mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" Title="EmployeePage">
+      mc:Ignorable="d" 
+      d:DesignHeight="800" 
+      d:DesignWidth="1200" 
+      Title="Employee Detail"
+      Background="{StaticResource BackgroundBrush}">
 
     <Page.Resources>
         <utilities:BitmapImageConverter x:Key="BitmapImageConverter" />
         <utilities:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Page.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="20 15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" />
-            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Employee Photo -->
-        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Width="200" Height="200" 
-                   Source="{Binding Employee.picture, Converter={StaticResource BitmapImageConverter}}" />
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8" Margin="8">
-                <StackPanel>
-                    <oxyplot:PlotView Model="{Binding PlotModel}" MinHeight="300" MinWidth="400" Margin="2" />
-                </StackPanel>
-            </Border>
-        </StackPanel>
+        <!-- Sección izquierda - Foto y Gráfico -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                Margin="0 0 20 0"
+                Background="{StaticResource BackgroundBrush}"
+                CornerRadius="8"
+                BorderBrush="{StaticResource LightBrush}"
+                BorderThickness="1"
+                Padding="15">
+            <StackPanel>
+                <Border CornerRadius="8" 
+                        BorderBrush="{StaticResource LightBrush}" 
+                        BorderThickness="1"
+                        Padding="4"
+                        Margin="0 0 0 15">
+                    <Image Width="200" Height="200" 
+                           Source="{Binding Employee.picture, Converter={StaticResource BitmapImageConverter}}"
+                           Stretch="UniformToFill"/>
+                </Border>
 
-        <!-- Employee Details -->
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
-            <!-- Name -->
-            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeName}}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeFirstName}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.first_name}" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeLastName}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.last_name}" />
-                </Grid>
-            </GroupBox>
+                <Border CornerRadius="8"
+                        BorderBrush="{StaticResource LightBrush}"
+                        BorderThickness="1"
+                        Padding="4">
+                    <oxyplot:PlotView Model="{Binding PlotModel}" 
+                                    MinHeight="300" 
+                                    Background="Transparent"/>
+                </Border>
+            </StackPanel>
+        </Border>
 
-            <!-- Position -->
-            <GroupBox Header="{Binding Source={x:Static p:Resources.employeePosition}}">
-                <TextBlock Text="{Binding Employee.position}" />
-            </GroupBox>
+        <!-- Sección derecha - Detalles del empleado -->
+        <ScrollViewer Grid.Row="0" Grid.Column="1" 
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="0 0 0 15">
+            <StackPanel>
+                <GroupBox Header="{Binding Source={x:Static p:Resources.employeeName}}"
+                          FontSize="16"
+                          Margin="0 0 0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-            <!-- Contact Info -->
-            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeContactInfo}}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeEmail}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.email}" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeePhoneNumber}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.phone_number}" />
-                </Grid>
-            </GroupBox>
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeFirstName}}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Employee.first_name}"
+                                   Margin="10 0 0 0"/>
 
-            <!-- Employment Info -->
-            <GroupBox Header="{Binding Source={x:Static p:Resources.employeeEmploymentInfo}}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeHireDate}}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Employee.hire_date}" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeSalary}}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Employee.salary}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static p:Resources.employeeDepartment}}" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Employee.department.name}" />
-                </Grid>
-            </GroupBox>
-        </StackPanel>
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeLastName}}"
+                                   Margin="0 10 0 0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Employee.last_name}"
+                                   Margin="10 10 0 0"/>
+                    </Grid>
+                </GroupBox>
 
-        <!-- Payroll List -->
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Employee.Payrolls}" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,10,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.payDay}}" Binding="{Binding pay_date}" Width="*" />
-                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.grossSalary}}" Binding="{Binding gross_salary}" Width="*" />
-                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.deductions}}" Binding="{Binding deductions}" Width="*" />
-                <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.netSalary}}" Binding="{Binding net_salary}" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid> 
+                <GroupBox Header="{Binding Source={x:Static p:Resources.employeeContactInfo}}"
+                          Margin="0 0 0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-        <!-- Action Buttons -->
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnPDF" Content="{Binding Source={x:Static p:Resources.generatePayroll}}" Width="100" Click="btnPDF_Click"  />
-            <Separator></Separator>
-            <Button x:Name="btnBack" Content="{Binding Source={x:Static p:Resources.Return}}" Width="100" Click="btnBack_Click" />
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeEmail}}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Employee.email}"
+                                   Margin="10 0 0 0"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeePhoneNumber}}"
+                                   Margin="0 10 0 0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Employee.phone_number}"
+                                   Margin="10 10 0 0"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="{Binding Source={x:Static p:Resources.employeeEmploymentInfo}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeHireDate}}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Employee.hire_date}"
+                                   Margin="10 0 0 0"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeSalary}}"
+                                   Margin="0 10 0 0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Employee.salary, StringFormat=C}"
+                                   Margin="10 10 0 0"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding Source={x:Static p:Resources.employeeDepartment}}"
+                                   Margin="0 10 0 0"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding Employee.department.name}"
+                                   Margin="10 10 0 0"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Nóminas -->
+        <Border Grid.Row="1" Grid.Column="1"
+                Margin="0 0 0 15"
+                CornerRadius="8"
+                BorderBrush="{StaticResource LightBrush}"
+                BorderThickness="1">
+            <DataGrid ItemsSource="{Binding Employee.Payrolls}" 
+                      Style="{StaticResource ModernDataGridStyle}"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.payDay}}" 
+                                       Binding="{Binding pay_date, StringFormat=d}"
+                                       Width="2*"/>
+                    <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.grossSalary}}" 
+                                       Binding="{Binding gross_salary, StringFormat=C}"
+                                       Width="1.5*"/>
+                    <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.deductions}}" 
+                                       Binding="{Binding deductions, StringFormat=C}"
+                                       Width="1.5*"/>
+                    <DataGridTextColumn Header="{Binding Source={x:Static p:Resources.netSalary}}" 
+                                       Binding="{Binding net_salary, StringFormat=C}"
+                                       Width="1.5*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Botones de Acción -->
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="0 15 0 0">
+            <Button x:Name="btnPDF" 
+                    Content="{Binding Source={x:Static p:Resources.generatePayroll}}" 
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    MinWidth="160"
+                    Click="btnPDF_Click"
+                    Margin="0 0 10 0"/>
+
+            <Button x:Name="btnBack" 
+                    Content="{Binding Source={x:Static p:Resources.Return}}" 
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="btnBack_Click"
+                    MinWidth="160"/>
         </StackPanel>
     </Grid>
 </Page>
